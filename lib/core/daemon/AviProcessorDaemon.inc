@@ -45,6 +45,7 @@ class AviProcessorDaemon extends ScheduleDaemon {
     protected $image_count = 0;
 
     protected $imgs2avi = NULL;
+    protected $encoder = "";
 
 
 	/**
@@ -68,6 +69,7 @@ class AviProcessorDaemon extends ScheduleDaemon {
         $this->imagesdir = $config->get("imagesdir");
         $this->imgs2avi = $config->get("imgs2avi");
         $this->videodir = $config->get("videodir");
+        $this->encoder = $config->get("encoder");
 	}
 
 	/**
@@ -123,7 +125,7 @@ class AviProcessorDaemon extends ScheduleDaemon {
 		$aviname = "timelapse_640x480_".$rate."fps.avi";
 		#$cmd = "/usr/bin/avconv -y -i ".$aviname." -b 1900k -f flv ".$ymdDate."/timelapse.flv";
 		#$this->exec_command($dirname, $cmd);
-		$cmd = "/usr/bin/avconv -y -i ".$aviname." ".$ymdDate."/timelapse.webm";
+		$cmd = $this->encoder." -y -i ".$aviname." ".$ymdDate."/timelapse.webm";
 		$this->exec_command($dirname, $cmd);
 
 		//now send it to the hosting provider
