@@ -1,0 +1,78 @@
+.dwg-root line,
+.dwg-root rect,
+.dwg-root .dwg-axis path {
+    shape-rendering: crispEdges;
+}
+
+.dwg-region-separator,
+.dwg-vertical-separator,
+.dwg-axis line, .axis path {
+    stroke: #AAA;
+    stroke-width: 1px;
+}
+
+.dwg-axis text {
+    font-size: 11px;
+    fill: #777;
+}
+
+.dwg-section-label,
+.dwg-statistic-label {
+    fill: #333;
+    font-size: 12px;
+}
+.dwg-missing-label {
+    fill: #777;
+    font-size: 11px;
+}
+
+.dwg-graph-background {
+    fill: rgb(245, 245, 245);
+}
+.dwg-plot-area-background,
+.dwg-wind-region-background,
+.dwg-rain-region-background,
+.dwg-temperature-region-background {
+    fill: none;
+}
+
+.dwg-rain-bar {
+    stroke-width: 1px;
+}
+.dwg-rain-label {
+    font-size: 11px;
+}
+.dwg-rain-zero-dot {
+    font-size: 15px;
+}
+
+.dwg-wind-gust-label {
+    fill: #FFFFFF;
+    font-size: 11px;
+}
+.dwg-wind-direction-label {
+    fill: #777777;
+    font-size: 11px;
+}
+
+.dwg-temperature-low-path, .dwg-temperature-high-path {
+    fill: none;
+    stroke: #CCC;
+    stroke-width: 1px;
+}
+.dwg-temperature-high-label, .dwg-temperature-low-label {
+    font-size: 12px;
+    font-weight: 600;
+}
+.dwg-temperature-low-label {
+    fill: rgb(0, 0, 250);
+}
+.dwg-temperature-high-label {
+    fill: rgb(250, 0, 0);
+}
+
+.dwg-cursor {
+    stroke: #BBB;
+    stroke-width: 1px;
+    stroke-opacity: 0;
+}

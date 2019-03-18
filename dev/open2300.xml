@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config>
+  <database>
+    <connection>
+      <host>localhost</host>
+      <driver>mysql</driver>
+      <name>open2300</name>
+      <user>root</user>
+      <password>root</password>
+    </connection>
+    <tables parent="open2300DBDataObject">
+      <table name="weather" />
+      <table name="weather_daily_agg" />
+    </tables>
+  </database>
+</config>

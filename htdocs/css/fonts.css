@@ -1,0 +1,45 @@
+.font8 {
+	font-family: arial, helvetica, lucida;
+	font-size: 8pt;
+	line-height: 9pt;
+}
+
+.font10 {
+	font-family: arial, helvetica, lucida;
+	font-size: 10pt;
+	line-height: 11pt;
+}
+
+.font10bold {
+	font-family: arial, helvetica, lucida;
+	font-size: 10pt;
+	font-weight: bold;
+}
+.font10boldwhite {
+	font-family: arial, helvetica, lucida;
+	font-size: 10pt;
+	font-weight: bold;
+	color: #FFFFFF;
+}
+
+.font12 {
+	font-family: arial, helvetica, lucida;
+	font-size: 12pt;
+}
+.font12bold {
+	font-family: arial, helvetica, lucida;
+	font-size: 12pt;
+	font-weight: bold;
+}
+
+
+.font14 {
+	font-family: arial, helvetica, lucida;
+	font-size: 14pt;  
+}
+
+.font14bold {
+	font-family: arial, helvetica, lucida;
+	font-size: 14pt;
+	font-weight: bold;
+}

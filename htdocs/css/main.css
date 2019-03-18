@@ -1,0 +1,428 @@
+body {
+    margin: 0px 0px 0px 0px;
+    font-size: 12pt;
+    font-family: Verdana, Trebuchet, Helvetica, Sans-Serif;
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: none;
+    color: #000000;
+    background-color: #FFFFFF;
+}
+
+#phphtmllib {
+    font-family: arial, helvetica;
+    font-size: .6em;
+}
+
+#pageheader {
+    background-color: #FFFFFF;
+    width: 100%;
+    height:150px;
+    background: url('/images/banners/spring/morning_rain.jpg') no-repeat top center;
+}
+
+#headtopleft {
+	font-size: 1em;
+	font-weight: bold;
+	padding-bottom:2px;
+	width:165px;
+}
+
+#headtopcenter {
+	font-size: .8em;
+	font-weight: normal;
+	padding-bottom:2px;
+	text-align: left;
+	width:250px;
+}
+
+#headtopright {
+	font-size: .9em;
+	font-weight: bold;
+	text-align: right;
+	padding-bottom:2px;
+	width: 100px;
+}
+
+#idMetarContainer {
+	position: relative;
+	top:42px;
+	height:10px;
+}
+
+#idMetar {
+	font-size: .6em;
+	color: white;
+	font-weight:bold;
+	text-align:right;
+	height:10px;
+	padding-right:5px;
+}
+
+.cold {
+	color: blue;
+}
+.hot {
+	color: red;
+}
+
+#idPageHeadText {
+    width: 100%;
+    text-align:center;
+    font-size:1.4em;
+    font-weight:bold;
+    padding-top:8px;
+    position:relative;
+    top: -20px;
+}
+
+#idPageSubHeadText {
+    width: 100%;
+    text-align:center;
+    font-size:.6em;
+    padding-top:0px;
+    position:relative;
+    top: -20px;
+}
+
+
+#maincontent {
+    background-color:#ffffff;
+    width:80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.leftblock {
+    width: 180px;
+    padding:20px;
+    vertical-align: top;
+}
+
+.rightblock {
+    width: 100%;
+    padding:20px;
+    vertical-align: top;
+}
+
+#footerblock {
+    width: 100%;
+}
+
+.wx {
+  padding:2px;
+  background-color: #eeeeee;
+  border: 1px solid #aaaaaa;
+}
+
+#idCurrentConditions, #idWxMonthData {
+    font-size: .6em;
+	 color: black;
+}
+
+a.download:active, a.download:link, a.download:visited {
+  font-size: .6em;
+  color: #000000;
+}
+
+#idCurrentConditionscontents, #idWxMonthDatacontents {
+  border: 1px solid #000088;
+}
+
+
+.cctitle {
+    font-size: .8em;
+    font-weight:bold;
+    background-color: #000088;
+    color: #ffffff;
+    padding:2px;
+    margin:1px;
+}
+
+#idcclastupdate {
+    background-color: #efefef;
+    padding:2px;
+    margin:1px;
+}
+
+.linkrefresh,.linkrefresh:visited {
+    color:#ffffff;
+}
+
+#idWebCamContents {
+  border: 1px solid #000088;
+  width: 482px;
+  height: 331px;
+}
+
+#idWebCamTitle {
+  font-size: .7em;
+  font-weight:bold;
+  background-color: #000088;
+  color: #ffffff;
+  padding:2px;
+  margin:1px;
+}
+
+#idWebCamTitle a:active,a:visited,a:link {
+  color:#ffffff;
+  font-weight:bold;
+  font-family: arial, helvetica, sans-serif;
+  padding-left:10px;
+}
+
+#idDailyWXGraph {
+  border: 1px solid #000088;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin-bottom: 5px;
+  height: 440px;
+  width: 510px;
+}
+
+#idWebCamImg {
+  padding-left:1px;
+  margin:0px;
+}
+
+#idTimeLapseContents {
+  border: 1px solid #000088;
+  width: 322px;
+  height: 250px;
+}
+
+#idTimeLapseTitle {
+  font-size: .7em;
+  font-weight:bold;
+  background-color: #000088;
+  color: #ffffff;
+  padding:2px;
+  margin:1px;
+}
+
+#idRadarDiv {
+  padding-top: 10px;
+}
+
+#idRadar2Div {
+  padding-top: 10px;
+}
+
+#idSatDiv {
+  padding-top: 10px;
+}
+
+#calContainer {
+	display:none;
+	position:absolute;
+	left: 1200px;
+	top:170px;
+	z-index:2;
+}
+
+#idWebCamCal {
+	clear: both;
+}
+
+#map {
+    margin-top:10px;
+    height: 250px;
+}
+
+
+
+table.calendar {border: 0; color: black; background-color: #ffeff;}
+table.calendar td, th {text-align: center; border: 0}
+table.calendar th {height: 10px; font-size: .8em;}
+table.calendar td {width: 19px; height: 10px; font-size: .8em;}
+table.calendar .calendar-month {font-weight: bold; margin-top: 3px; font-size: 1em; text-align: center}
+table.calendar .calendar-month a{text-decoration: none}
+table.calendar a.calendar-prev, table.calendar a.calendar-next {font-weight: normal;color:black;}
+table.calendar th {color: green; text-align: center;}
+table.calendar a.linked-day {font-size: .8em; color: black; font-weight:normal; text-align:center;}
+table.calendar td.selected-day {font-size: .9em; color: red; font-weight:bold;}
+
+table.prevnext {width: 100%; margin-top: .3em;}
+table.prevnext td{
+	font-size: smaller;
+}
+table.prevnext td a{text-decoration: none}
+
+
+#idWxDataList {
+	padding-top:5px;
+}
+
+
+.datalist_col_head  {
+  font-family: arial, helvetica, sans-serif;
+  font-size: .8em;
+  font-weight: bold;
+  color: #000000;
+  background-color: #eeeeee;
+  text-align: left;
+  white-space: nowrap;
+  height: 20px;
+  vertical-align: middle;
+  border-left: 1px solid #ccccff;
+  border-top: 1px solid #ccccff;
+  border-right: 1px solid #ccccff;
+  border-bottom: 1px solid #ccccff;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.datalist_col_head a.head_link:active,a.head_link:visited,a.head_link:link {
+  color: #000000;
+  font-family: arial, helvetica, sans-serif;
+  font-size: .8em;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.datalist_col_head_hover  {
+  font-family: arial, helvetica, sans-serif;
+  font-size: .8em;
+  font-weight: bold;
+  color: #000000;
+  background-color: #4054AB;
+  text-align: left;
+  white-space: nowrap;
+  height: 20px;
+  vertical-align: middle;
+  border-left: 1px solid #5D72C3;
+  border-top: 1px solid #5D72C3;
+  border-right: 1px solid #5D72C3;
+  border-bottom: 1px solid #5D72C3;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.datalist_col_head_clicked  {
+  font-family: arial, helvetica, sans-serif;
+  font-size: .8em;
+  font-weight: bold;
+  color: #000000;
+  background-color: #4054AB;
+  text-align: left;
+  white-space: nowrap;
+  height: 20px;
+  vertical-align: middle;
+  border-left: 1px solid white;
+  border-top: 1px solid white;
+  border-right: 1px solid gray;
+  border-bottom: 1px solid gray;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.datalist_border  {
+  border: 1px solid #999999;
+}
+
+.datalist_title  {
+    font-family: arial;
+    font-size: .8em;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #000088;
+    background-image: url(/images/tableheader_bg7.gif);
+    padding-top:2px;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-top-style: none;
+    border-right-style: none;
+    border-bottom-style: solid;
+    border-left-style: none;
+    border-top-color: #7D6E5C;
+    border-right-color: #7D6E5C;
+    border-bottom-color: #7D6E5C;
+    border-left-color: #7D6E5C;
+}
+
+.datalist_search_block {
+    font-family: arial, helvetica, sans-serif;
+    font-size: .8em;
+    padding-left: 5px;
+    padding-bottom:6px;
+    padding-right:40px;
+    padding-top:6px;
+    background-color: #eeeeee;
+    border-top:1px solid gray;
+}
+
+
+.datalist_data_cell  {
+  font-family: arial, helvetica, sans-serif;
+  font-size: .8em;
+  background-color: #ffffff;
+  padding-left: 3px;
+  padding-right: 3px;
+  padding-bottom: 3px;
+  border-top: 1px solid #efefef;
+}
+
+.datalist_data_cell_selected {
+  font-family: arial, helvetica, sans-serif;
+  font-size: .8em;
+  background-color: #f7f7f7;
+  padding-left: 3px;
+  padding-right: 3px;
+  border-top: 1px solid #efefef;
+}
+
+.datalist_data_cell_odd  {
+  font-family: arial, helvetica, sans-serif;
+  font-size: .8em;
+  background-color: #fafafa;
+  padding-left: 3px;
+  padding-right: 3px;
+  padding-bottom: 3px;
+  border-top: 1px solid #efefef;
+}
+.datalist_data_cell_odd_selected {
+  font-family: arial, helvetica, sans-serif;
+  font-size: .8em;
+  background-color: #f7f7f7;
+  padding-left: 3px;
+  padding-right: 3px;
+  border-top: 1px solid #efefef;
+}
+
+
+.datalist_actionbar  {
+  border: 1px solid #999999;
+}
+
+.datalist_actionbar_data_cell  {
+  font-family: arial, helvetica, sans-serif;
+  font-size: .8em;
+  background: #efefef;
+  padding-left: 3px;
+  padding-right: 3px;
+  border-top: 1px solid #efefef;
+}
+
+
+
+.datalist_bottom_seperator  {
+  font-size: 2px;
+  line-height: 2px;
+  background: #CCCCCC;
+  text-align: left;
+  white-space: nowrap;
+  height: 2px;
+  border-left: 1px solid #FFFFFF;
+  border-top: 1px solid #FFFFFF;
+  border-right: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.datalist_font8 {
+  font-family: arial, helvetica, sans-serif;
+  font-size: .8em;
+}
