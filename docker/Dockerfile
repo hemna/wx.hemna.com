@@ -19,6 +19,10 @@ RUN apt-get update && \
   apt-get -y install imagemagick ffmpeg lnav && \
   apt-get -y autoremove
 
+# Add needed php extensions
+RUN export CPU_COUNT=$(cat /proc/cpuinfo | grep processor |wc -l) && \
+    docker-php-ext-install -j $CPU_COUNT mysqli pdo_mysql
+
 # Add composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
     php composer-setup.php && \
@@ -39,8 +43,9 @@ ENV PHP_POST_MAX_SIZE 10M
 
 
 # Now get the app
+RUN cd /root && git clone https://github.com/hemna/wx.hemna.com.git wx.hemna.com
 RUN cd /root && git clone https://git.code.sf.net/p/phphtmllib/git phphtmllib-git && \
-    ln -s /root/phphtmllib-git/phphtmllib /root/phphtmllib-git/wx.hemna.com/lib/external/phphtmllib
+    ln -s /root/phphtmllib-git/phphtmllib /root/wx.hemna.com/lib/external/phphtmllib
 
 RUN cd /root && wget -qO - https://raw.githubusercontent.com/hemna/.dotfiles/master/bootstrap.sh | bash
 
