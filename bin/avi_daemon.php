@@ -9,7 +9,8 @@
  */
 
 $lib_path = realpath('../lib');
-ini_set('include_path', '.:/usr/local/lib:/usr/share/php/:/home/waboring/local/php5/lib/php/:'.$lib_path);
+$i_path = ini_get('include_path');
+ini_set('include_path', $i_path.':/home/waboring/local/php5/lib/php/:'.$lib_path);
 
 define('PHPHTMLLIB', realpath('../lib/external/phphtmllib'));
 $GLOBALS['path_base'] = realpath('..');
