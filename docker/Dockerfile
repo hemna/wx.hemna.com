@@ -47,6 +47,9 @@ RUN cd /root && git clone https://github.com/hemna/wx.hemna.com.git wx.hemna.com
 RUN cd /root && git clone https://git.code.sf.net/p/phphtmllib/git phphtmllib-git && \
     ln -s /root/phphtmllib-git/phphtmllib /root/wx.hemna.com/lib/external/phphtmllib
 
+# Update the config.inc
+RUN sed -i "s/$config\->set('imagesdir'.*/$config\->set('imagesdir','\/wxcam');/" /root/wx.hemna.com/lib/config.inc
+
 RUN cd /root && wget -qO - https://raw.githubusercontent.com/hemna/.dotfiles/master/bootstrap.sh | bash
 
 VOLUME ["/app", "/wxcam"]
