@@ -42,7 +42,7 @@ $GLOBALS['config']->set('db_debug', false);
 
 //the directory on the gentoo box that the camera
 //dumps the images.
-$config->set('imagesdir', "/var/www/wxcam");
+$config->set('imagesdir', $GLOBALS["path_base"]."/wxcam");
 //the video dir where the movies go on hosting provider
 $config->set('videodir', realpath($GLOBALS["path_base"])."/htdocs/video");
 
