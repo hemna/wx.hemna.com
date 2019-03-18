@@ -106,6 +106,7 @@ function exception_handler($exception) {
 set_exception_handler('exception_handler');
 
 /******************* REQUIRED INCLUDES **************************/
+error_reporting(0);
 
 // include essential phphtmllib files
 require($GLOBALS['path_external'].'/phphtmllib/required_includes.inc');
