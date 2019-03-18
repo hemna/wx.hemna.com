@@ -21,7 +21,7 @@ RUN apt-get update && \
 
 # Add needed php extensions
 RUN export CPU_COUNT=$(cat /proc/cpuinfo | grep processor |wc -l) && \
-    docker-php-ext-install -j $CPU_COUNT mysqli pdo_mysql
+    docker-php-ext-install -j $CPU_COUNT mysqli pdo_mysql pcntl
 
 # Add composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
