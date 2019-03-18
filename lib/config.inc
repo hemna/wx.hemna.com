@@ -49,6 +49,11 @@ $config->set('videodir', realpath($GLOBALS["path_base"])."/htdocs/video");
 //the current season (for banner images)
 $config->set("season", "winter");
 $config->set("sitename", "wx.hemna.com");
+
+
+//For the avi daemon
+$config->set("imgs2avi", "/home/waboring/local/bin/imgs2avi.sh");
+
 //error_reporting(E_ALL ^ E_DEPRECATED)
 error_reporting(0)
 ?>

@@ -35,13 +35,16 @@ class AviProcessorDaemon extends ScheduleDaemon {
 	protected $log;
 
 	protected $imagesdir;
+	protected $videodir;
 
 	/**
 	 * track the number of images we are
 	 * processing.  If we have the same number
 	 * as last run...no need to process.
 	 */
-	protected $image_count = 0;
+    protected $image_count = 0;
+
+    protected $imgs2avi = NULL;
 
 
 	/**
@@ -62,7 +65,9 @@ class AviProcessorDaemon extends ScheduleDaemon {
 	 */
 	protected function init() {
 		$config = Config::singleton();
-		$this->imagesdir = $config->get("imagesdir");
+        $this->imagesdir = $config->get("imagesdir");
+        $this->imgs2avi = $config->get("imgs2avi");
+        $this->videodir = $config->get("videodir");
 	}
 
 	/**
@@ -111,7 +116,7 @@ class AviProcessorDaemon extends ScheduleDaemon {
 
 		$this->log->info("::do_task() rate is ".$rate." -> movie length = ".$this->num_images/$rate."s");
 		//generate the avi
-		$cmd = "/home/waboring/local/bin/imgs2avi.sh -w 640 -h 480 -r ".$rate;
+		$cmd = $this->imgs2avi." -w 640 -h 480 -r ".$rate;
 		$this->exec_command($dirname, $cmd);
 
 		//now convert the avi movie to a flash file
@@ -124,7 +129,7 @@ class AviProcessorDaemon extends ScheduleDaemon {
 		//now send it to the hosting provider
 		//$cmd = "/usr/bin/scp timelapse.flv wx.hemna.com:wx.hemna.com/htdocs/video/".$ymdDate;
 		//$cmd = "/usr/bin/rsync -av ".$ymdDate." wx.hemna.com:wx.hemna.com/htdocs/video";
-		$cmd = "/usr/bin/rsync -av ".$ymdDate." /home/waboring/wx.hemna.com/htdocs/video";
+		$cmd = "/usr/bin/rsync -av ".$ymdDate." ".$this->videodir;
 		$this->exec_command($dirname, $cmd);
 
 		//track the image count
