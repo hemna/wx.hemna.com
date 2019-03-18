@@ -78,10 +78,10 @@ class AviProcessorDaemon extends ScheduleDaemon {
 		$ymdDate = date("Ymd");
 
 		$dirname = $this->imagesdir."/".$ymdDate;
-		
+
 		//make sure the images dir exists.
 		$this->test_images_dir($dirname);
-		
+
 		$num_images = $this->count_images($dirname);
 		$this->num_images = $num_images;
 
@@ -89,7 +89,7 @@ class AviProcessorDaemon extends ScheduleDaemon {
 			$this->log->info("::can_run() no images or same count");
 			return false;
 		} else {
-				
+
 			$this->log->info("::do_task() found ".$num_images." to process into a movie.");
 			return true;
 		}
@@ -105,7 +105,7 @@ class AviProcessorDaemon extends ScheduleDaemon {
 		//used for directory
 		$ymdDate = date("Ymd");
 
-		$dirname = $this->imagesdir."/".$ymdDate;		
+		$dirname = $this->imagesdir."/".$ymdDate;
 
 		$rate = $this->calculate_rate($this->num_images);
 
@@ -113,22 +113,20 @@ class AviProcessorDaemon extends ScheduleDaemon {
 		//generate the avi
 		$cmd = "/home/waboring/local/bin/imgs2avi.sh -w 640 -h 480 -r ".$rate;
 		$this->exec_command($dirname, $cmd);
-			
+
 		//now convert the avi movie to a flash file
 		$aviname = "timelapse_640x480_".$rate."fps.avi";
-		$cmd = "/usr/bin/avconv -y -i ".$aviname." -b 1900k -f flv ".$ymdDate."/timelapse.flv";
-		$this->exec_command($dirname, $cmd);
+		#$cmd = "/usr/bin/avconv -y -i ".$aviname." -b 1900k -f flv ".$ymdDate."/timelapse.flv";
+		#$this->exec_command($dirname, $cmd);
 		$cmd = "/usr/bin/avconv -y -i ".$aviname." ".$ymdDate."/timelapse.webm";
 		$this->exec_command($dirname, $cmd);
-			
-		//move the
 
 		//now send it to the hosting provider
 		//$cmd = "/usr/bin/scp timelapse.flv wx.hemna.com:wx.hemna.com/htdocs/video/".$ymdDate;
 		//$cmd = "/usr/bin/rsync -av ".$ymdDate." wx.hemna.com:wx.hemna.com/htdocs/video";
-		$cmd = "/usr/bin/rsync -av ".$ymdDate." /home/waboring/phphtmllib.git/wx.hemna.com/htdocs/video";
+		$cmd = "/usr/bin/rsync -av ".$ymdDate." /home/waboring/wx.hemna.com/htdocs/video";
 		$this->exec_command($dirname, $cmd);
-			
+
 		//track the image count
 		$this->image_count = $num_images;
 	}
