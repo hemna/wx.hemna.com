@@ -52,9 +52,9 @@ $config->set("sitename", "wx.hemna.com");
 
 
 //For the avi daemon
-$config->set("imgs2avi", "/home/waboring/local/bin/imgs2avi.sh");
+$config->set('imgs2avi', '/home/waboring/local/bin/imgs2avi.sh');
 // Which encoder to use?
-$config->set("encoder", "/usr/bin/avconv");
+$config->set('encoder', '/usr/bin/avconv');
 
 //error_reporting(E_ALL ^ E_DEPRECATED)
 error_reporting(0)
