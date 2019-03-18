@@ -8,7 +8,7 @@ PHP=`which php`
 
 FONT="${WX_DIR}/bin/Verdana_Bold.ttf"
 #WXINFO="60F"
-WXINFO=`cd ${WX_DIR}/bin && ./img_wx_string.php`
+WXINFO=`cd ${WX_DIR}/bin && $PHP -f img_wx_string.php`
 WXCAM="${WX_DIR}/wxcam"
 TMP="${WX_DIR}/tmp"
 
