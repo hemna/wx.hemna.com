@@ -6,7 +6,7 @@ HUMANDATE=`date +%A\ %b\ %e,\ %Y\ \ %T\ %Z`
 WX_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )"/.. && pwd )"
 PHP=`which php`
 
-FONT="${WX_DIR}/Verdana_Bold.ttf"
+FONT="${WX_DIR}/bin/Verdana_Bold.ttf"
 #WXINFO="60F"
 WXINFO=`cd $DIR; ${PHP} ${WX_DIR}/bin/img_wx_string.php`
 WXCAM="${WX_DIR}/wxcam"
@@ -35,6 +35,10 @@ fi
 
 if [ ! -d ${TMP} ]; then
     mkdir ${TMP}
+fi
+
+if [ ! -d ${WX_DIR}/htdocs/cam ]; then
+    mkdir ${WX_DIR}/htdocs/cam
 fi
 
 if [ -e ${WXCAM}/${DATE} ]
