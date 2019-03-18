@@ -16,7 +16,7 @@ RUN apt-get update && \
   apt-get -y upgrade && \
   apt-get -y install sudo make build-essential automake libtool xclip zsh vim && \
   apt-get -y install supervisor wget git zip unzip curl && \
-  apt-get -y install imagemagick ffmpeg lnav && \
+  apt-get -y install imagemagick ffmpeg mencoder lnav && \
   apt-get -y autoremove
 
 # Add needed php extensions
@@ -44,11 +44,14 @@ ENV PHP_POST_MAX_SIZE 10M
 
 # Now get the app
 RUN cd /root && git clone https://github.com/hemna/wx.hemna.com.git wx.hemna.com
+RUN cd /root/wx.hemna.com && git pull --all
 RUN cd /root && git clone https://git.code.sf.net/p/phphtmllib/git phphtmllib-git && \
     ln -s /root/phphtmllib-git/phphtmllib /root/wx.hemna.com/lib/external/phphtmllib
 
 # Update the config.inc
 RUN sed -i "s/$config\->set('imagesdir'.*/$config\->set('imagesdir','\/wxcam');/" /root/wx.hemna.com/lib/config.inc
+RUN sed -i 's/WXCAM=.*/WXCAM="\/wxcam"/' /root/wx.hemna.com/bin/aircam.sh
+COPY .local.sh /root/.local.sh
 
 RUN cd /root && wget -qO - https://raw.githubusercontent.com/hemna/.dotfiles/master/bootstrap.sh | bash
 
