@@ -8,7 +8,7 @@ PHP=`which php`
 
 FONT="${WX_DIR}/bin/Verdana_Bold.ttf"
 #WXINFO="60F"
-WXINFO=`cd $DIR; ${PHP} ${WX_DIR}/bin/img_wx_string.php`
+WXINFO=`cd ${WX_DIR}/bin && ./img_wx_string.php`
 WXCAM="${WX_DIR}/wxcam"
 TMP="${WX_DIR}/tmp"
 
@@ -16,6 +16,10 @@ TMP="${WX_DIR}/tmp"
 # image wget url should be in the shell ENV var
 CAM_USERNAME="${CAM_USERNAME:-ass}"
 CAM_PASSWORD="${CAM_PASSWORD:-ass}"
+
+if [ -f ~/.local.sh ]; then
+    source ~/.local.sh
+fi
 
 if [ "$CAM_USERNAME" == "ass" ]; then
     echo "CAM_USERNAME not set in environement!!!"
