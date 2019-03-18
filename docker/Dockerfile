@@ -8,13 +8,13 @@ ENV DOCUER_USER_GID 1000
 ENV BOOT2DOCKER_ID 1000
 ENV BOOT2DOCKER_GID 1000
 
-WORKDIR /app
 
 # Install packages
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && \
   apt-get -y upgrade && \
-  apt-get -y install sudo make build-essential automake libtool xclip zsh vim && \
+  apt-get -y install sudo cron make build-essential syslog-ng && \
+  apt-get -y install automake libtool-bin procps xclip zsh vim && \
   apt-get -y install supervisor wget git zip unzip curl && \
   apt-get -y install imagemagick ffmpeg mencoder lnav && \
   apt-get -y autoremove
@@ -41,6 +41,8 @@ RUN mkdir -p /wxcam
 ENV PHP_UPLOAD_MAX_FILESIZE 10M
 ENV PHP_POST_MAX_SIZE 10M
 
+# Setup the root shell
+RUN cd /root && wget -qO - https://raw.githubusercontent.com/hemna/.dotfiles/master/bootstrap.sh | bash
 
 # Now get the app
 RUN cd /root && git clone https://github.com/hemna/wx.hemna.com.git wx.hemna.com
@@ -52,8 +54,15 @@ RUN cd /root && git clone https://git.code.sf.net/p/phphtmllib/git phphtmllib-gi
 RUN sed -i "s/$config\->set('imagesdir'.*/$config\->set('imagesdir','\/wxcam');/" /root/wx.hemna.com/lib/config.inc
 RUN sed -i 's/WXCAM=.*/WXCAM="\/wxcam"/' /root/wx.hemna.com/bin/aircam.sh
 COPY .local.sh /root/.local.sh
+COPY crontab.sh /root/crontab.sh
+RUN crontab /root/crontab.sh
+RUN echo "EXTRA_OPTS='-L 5'" >> /etc/default/cron
+CMD cron
 
-RUN cd /root && wget -qO - https://raw.githubusercontent.com/hemna/.dotfiles/master/bootstrap.sh | bash
+COPY run.sh /root
+RUN chmod 755 /root/run.sh
 
-VOLUME ["/app", "/wxcam"]
-CMD ["/bin/bash"]
+WORKDIR /wxcam
+
+VOLUME ["/wxcam"]
+CMD ["/root/run.sh"]
