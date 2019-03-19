@@ -10,6 +10,9 @@ ENV BOOT2DOCKER_GID 1000
 
 WORKDIR /root
 
+RUN ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime && \
+    dpkg-reconfigure -f noninteractive tzdata
+
 # Install packages
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && \
@@ -48,6 +51,7 @@ ADD .ssh /root/.ssh
 RUN cd /root && wget -qO - https://raw.githubusercontent.com/hemna/.dotfiles/master/bootstrap.sh | bash
 
 # Now get the app
+RUN ls
 RUN cd /root && git clone https://github.com/hemna/wx.hemna.com.git wx.hemna.com
 RUN cd /root/wx.hemna.com && git pull --all
 RUN cd /root && git clone https://git.code.sf.net/p/phphtmllib/git phphtmllib-git && \

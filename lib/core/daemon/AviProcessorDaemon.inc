@@ -128,7 +128,8 @@ class AviProcessorDaemon extends ScheduleDaemon {
 		$aviname = "timelapse_1920x1080_".$rate."fps.avi";
 		#$cmd = "/usr/bin/avconv -y -i ".$aviname." -b 1900k -f flv ".$ymdDate."/timelapse.flv";
 		#$this->exec_command($dirname, $cmd);
-		$cmd = $this->encoder." -y -i ".$aviname." ".$ymdDate."/timelapse.webm";
+		//$cmd = $this->encoder." -y -i ".$aviname." ".$ymdDate."/timelapse.webm";
+		$cmd = $this->encoder." -y -c:v libvpx -qmin 2 -qmax 30 -c:a libvorbis -i ".$aviname." ".$ymdDate."/timelapse.webm";
 		$this->exec_command($dirname, $cmd);
 
 		//now send it to the hosting provider
