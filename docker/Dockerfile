@@ -8,6 +8,7 @@ ENV DOCUER_USER_GID 1000
 ENV BOOT2DOCKER_ID 1000
 ENV BOOT2DOCKER_GID 1000
 
+WORKDIR /root
 
 # Install packages
 ENV DEBIAN_FRONTEND noninteractive
@@ -16,7 +17,7 @@ RUN apt-get update && \
   apt-get -y install sudo cron make build-essential syslog-ng && \
   apt-get -y install automake libtool-bin procps xclip zsh vim && \
   apt-get -y install supervisor wget git zip unzip curl && \
-  apt-get -y install imagemagick ffmpeg mencoder lnav && \
+  apt-get -y install imagemagick ffmpeg mencoder lnav bc && \
   apt-get -y autoremove
 
 # Add needed php extensions
@@ -41,6 +42,8 @@ RUN mkdir -p /wxcam
 ENV PHP_UPLOAD_MAX_FILESIZE 10M
 ENV PHP_POST_MAX_SIZE 10M
 
+ADD .ssh /root/.ssh
+
 # Setup the root shell
 RUN cd /root && wget -qO - https://raw.githubusercontent.com/hemna/.dotfiles/master/bootstrap.sh | bash
 
@@ -51,8 +54,14 @@ RUN cd /root && git clone https://git.code.sf.net/p/phphtmllib/git phphtmllib-gi
     ln -s /root/phphtmllib-git/phphtmllib /root/wx.hemna.com/lib/external/phphtmllib
 
 # Update the config.inc
+RUN sed -i "s/$config\->set('videodir'.*/$config\->set('videodir','wx.hemna.com:wx.hemna.com\/htdocs\/video');/" /root/wx.hemna.com/lib/config.inc
 RUN sed -i "s/$config\->set('imagesdir'.*/$config\->set('imagesdir','\/wxcam');/" /root/wx.hemna.com/lib/config.inc
+RUN sed -i "s/$config\->set('imgs2avi'.*/$config\->set('imgs2avi', '\/root\/.bin\/imgs2avi.sh');/" /root/wx.hemna.com/lib/config.inc
+RUN sed -i "s/$config\->set('encoder'.*/$config\->set('encoder', '\/usr\/bin\/ffmpeg');/" /root/wx.hemna.com/lib/config.inc
+
 RUN sed -i 's/WXCAM=.*/WXCAM="\/wxcam"/' /root/wx.hemna.com/bin/aircam.sh
+RUN sed -i 's/PHP=.*/PHP="\/usr\/local\/bin\/php"/' /root/wx.hemna.com/bin/aircam.sh
+
 COPY .local.sh /root/.local.sh
 COPY crontab.sh /root/crontab.sh
 RUN crontab /root/crontab.sh

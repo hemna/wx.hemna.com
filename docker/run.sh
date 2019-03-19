@@ -6,3 +6,5 @@
 
 # this is so we can get a shell into the container
 /bin/bash
+
+/usr/bin/supervisord -n
