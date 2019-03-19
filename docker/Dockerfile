@@ -20,7 +20,7 @@ RUN apt-get update && \
   apt-get -y install sudo cron make build-essential syslog-ng && \
   apt-get -y install automake libtool-bin procps xclip zsh vim && \
   apt-get -y install supervisor wget git zip unzip curl && \
-  apt-get -y install imagemagick ffmpeg mencoder lnav bc htop && \
+  apt-get -y install imagemagick ffmpeg mencoder lnav bc htop tig && \
   apt-get -y autoremove
 
 # Add needed php extensions
@@ -51,7 +51,7 @@ ADD .ssh /root/.ssh
 RUN cd /root && wget -qO - https://raw.githubusercontent.com/hemna/.dotfiles/master/bootstrap.sh | bash
 
 # Now get the app
-RUN ls
+RUN ls -al
 RUN cd /root && git clone https://github.com/hemna/wx.hemna.com.git wx.hemna.com
 RUN cd /root/wx.hemna.com && git pull --all
 RUN cd /root && git clone https://git.code.sf.net/p/phphtmllib/git phphtmllib-git && \
