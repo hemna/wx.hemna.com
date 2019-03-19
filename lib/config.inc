@@ -59,5 +59,7 @@ $config->set('encoder', '/usr/bin/avconv');
 $config->set('avi_daemon_wait', 3600);
 
 //error_reporting(E_ALL ^ E_DEPRECATED)
-error_reporting(0)
+error_reporting(0);
+date_default_timezone_set("America/New_York");
+
 ?>
