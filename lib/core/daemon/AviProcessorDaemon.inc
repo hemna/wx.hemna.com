@@ -119,11 +119,13 @@ class AviProcessorDaemon extends ScheduleDaemon {
 
 		$this->log->info("::do_task() rate is ".$rate." -> movie length = ".$this->num_images/$rate."s");
 		//generate the avi
-		$cmd = $this->imgs2avi." -w 640 -h 480 -r ".$rate;
+		//$cmd = $this->imgs2avi." -w 640 -h 480 -r ".$rate;
+		$cmd = $this->imgs2avi." -w 1920 -h 1080 -r ".$rate;
 		$this->exec_command($dirname, $cmd);
 
 		//now convert the avi movie to a flash file
-		$aviname = "timelapse_640x480_".$rate."fps.avi";
+		//$aviname = "timelapse_640x480_".$rate."fps.avi";
+		$aviname = "timelapse_1920x1080_".$rate."fps.avi";
 		#$cmd = "/usr/bin/avconv -y -i ".$aviname." -b 1900k -f flv ".$ymdDate."/timelapse.flv";
 		#$this->exec_command($dirname, $cmd);
 		$cmd = $this->encoder." -y -i ".$aviname." ".$ymdDate."/timelapse.webm";
