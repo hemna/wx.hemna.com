@@ -62,14 +62,14 @@ then
   mv jpeg.cgi snapshot.cgi
   mv snapshot.cgi cam.jpg
   #now add the stamp and such
-  # -fill white -annotate +2+3 "$HUMANDATE" \
   echo "Add annotations"
   convert cam.jpg -quality 90 \
    -font $FONT \
    -pointsize 48 -gravity southwest \
+   -fill white -annotate +2+3 "$HUMANDATE" \
    -fill '#0004' -draw 'rectangle 0,2000,2560,1820' \
-   -fill '#adadad' -annotate +480+20 "$WXINFO°F" \
-   -fill '#adadad' -gravity southwest -annotate +2+20 "wx.hemna.com" \
+   -fill white -annotate +480+20 "$WXINFO°F" \
+   -fill white -gravity southwest -annotate +2+20 "wx.hemna.com" \
     cam2.jpg
 
   echo "move to latest cam image"
