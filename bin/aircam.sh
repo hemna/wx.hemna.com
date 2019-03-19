@@ -1,7 +1,7 @@
 #!/bin/bash
 TIME=`date +%H%M%S`
 DATE=`date +%Y%m%d`
-HUMANDATE=`date +%A\ %b\ %e,\ %Y\ \ %T\ %Z`
+HUMANDATE=`TZ=America/New_York date +%A\ %b\ %e,\ %Y\ \ %T\ %Z`
 
 WX_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )"/.. && pwd )"
 PHP=`which php`
@@ -65,11 +65,11 @@ then
   echo "Add annotations"
   convert cam.jpg -quality 90 \
    -font $FONT \
-   -pointsize 48 -gravity southwest \
-   -fill white -annotate +2+3 "$HUMANDATE" \
    -fill '#0004' -draw 'rectangle 0,2000,2560,1820' \
-   -fill white -annotate +480+20 "$WXINFO°F" \
-   -fill white -gravity southwest -annotate +2+20 "wx.hemna.com" \
+   -pointsize 48 -gravity southwest \
+   -fill white -gravity southwest -annotate +2+20 "$HUMANDATE" \
+   -fill white -gravity south -annotate +480+20 "$WXINFO°F" \
+   -fill white -gravity southeast -annotate +2+20 "wx.hemna.com" \
     cam2.jpg
 
   echo "move to latest cam image"
