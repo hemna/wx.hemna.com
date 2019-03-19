@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Now run the config password updater
+/root/update-config.sh
+
 # we need syslog to log cron and trap errors
 /usr/sbin/syslog-ng
 /usr/sbin/cron

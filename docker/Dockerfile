@@ -20,7 +20,7 @@ RUN apt-get update && \
   apt-get -y install sudo cron make build-essential syslog-ng && \
   apt-get -y install automake libtool-bin procps xclip zsh vim && \
   apt-get -y install supervisor wget git zip unzip curl && \
-  apt-get -y install imagemagick ffmpeg mencoder lnav bc && \
+  apt-get -y install imagemagick ffmpeg mencoder lnav bc htop && \
   apt-get -y autoremove
 
 # Add needed php extensions
@@ -74,6 +74,8 @@ CMD cron
 
 COPY run.sh /root
 RUN chmod 755 /root/run.sh
+COPY update-config.sh /root
+RUN chmod 755 /root/update-config.sh
 
 WORKDIR /wxcam
 
