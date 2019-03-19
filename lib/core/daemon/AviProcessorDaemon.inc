@@ -70,6 +70,7 @@ class AviProcessorDaemon extends ScheduleDaemon {
         $this->imgs2avi = $config->get("imgs2avi");
         $this->videodir = $config->get("videodir");
         $this->encoder = $config->get("encoder");
+        $this->wait_period = $config->get("avi_daemon_wait");
 	}
 
 	/**

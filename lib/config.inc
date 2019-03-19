@@ -55,6 +55,8 @@ $config->set("sitename", "wx.hemna.com");
 $config->set('imgs2avi', '/home/waboring/local/bin/imgs2avi.sh');
 // Which encoder to use?
 $config->set('encoder', '/usr/bin/avconv');
+//How many seconds to wait in between each encoding run
+$config->set('avi_daemon_wait', 3600);
 
 //error_reporting(E_ALL ^ E_DEPRECATED)
 error_reporting(0)
