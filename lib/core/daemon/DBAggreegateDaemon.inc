@@ -26,8 +26,7 @@ class DBAggreegateDaemon extends ScheduleDaemon {
 	 * how long to wait in between
 	 * processing. in seconds
 	 */
-	//protected $wait_period = 21600;
-	protected $wait_period = 10;
+	protected $wait_period = 21600;
 
 
 	/**
@@ -257,7 +256,7 @@ class DBAggreegateDaemon extends ScheduleDaemon {
             ////print("\n");
             if (stristr($e->getMessage(), "duplicate entry")) {
                 //found a dupe entry, lets ignore it
-                $this->log->debug("::get_agg_for_day duplicate entry. ignore.");
+                $this->log->debug("::get_agg_for_day duplicate entry. ignore."); 
             } else {
                 throw $e;
             }
