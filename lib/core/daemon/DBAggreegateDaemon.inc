@@ -26,7 +26,8 @@ class DBAggreegateDaemon extends ScheduleDaemon {
 	 * how long to wait in between
 	 * processing. in seconds
 	 */
-	protected $wait_period = 21600;
+	//protected $wait_period = 21600;
+	protected $wait_period = 10;
 
 
 	/**
@@ -248,7 +249,19 @@ class DBAggreegateDaemon extends ScheduleDaemon {
         $agg_obj->set_max_wind_speed_time($max_wind_time);
         $agg_obj->set_max_wind_angle($wind_angle);
         $agg_obj->set_rainfall($rain_month[$ymd]);
-        $agg_obj->save();
+        try {
+            $agg_obj->save();
+        } catch (DataBaseException $e) {
+            //print($e->getCode());
+            //print($e->getMessage());
+            ////print("\n");
+            if (stristr($e->getMessage(), "duplicate entry")) {
+                //found a dupe entry, lets ignore it
+                $this->log->debug("::get_agg_for_day duplicate entry. ignore.");
+            } else {
+                throw $e;
+            }
+        }
     }
 
 
