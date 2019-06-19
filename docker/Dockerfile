@@ -1,4 +1,4 @@
-From php:7.3-cli
+From php:7.3.6-apache
 MAINTAINER Walter Boring <waboring@hemna.com>
 ENV REFRESHED_AT 2019-03-17
 
@@ -37,34 +37,31 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
 RUN pear install Console_GetArgs
 
 # configure /app folder with sample app
-RUN mkdir -p /app
+# RUN mkdir -p /app
 # ADD app/ /app
 RUN mkdir -p /wxcam
+RUN mkdir -p /wx.hemna.com
 
 #Environment variables to configure php
 ENV PHP_UPLOAD_MAX_FILESIZE 10M
 ENV PHP_POST_MAX_SIZE 10M
 
-ADD .ssh /root/.ssh
+# Update Apache to point to the web dir
+RUN sed -i 's/\/var\/www\//\/wx.hemna.com\/wx.hemna.com/' /etc/apache2/apache2.conf
+RUN sed -i 's/\/var\/www\/html/\/wx.hemna.com\/wx.hemna.com\/htdocs/' /etc/apache2/sites-available/000-default.conf
+RUN sed -i 's/\/var\/www\/html/\/wx.hemna.com\/wx.hemna.com\/htdocs/' /etc/apache2/sites-available/default-ssl.conf
+
+# ADD .ssh /root/.ssh
+RUN groupadd -g 1000 waboring
+RUN useradd -M -u 1000 -g 1000 -G waboring,root waboring
+RUN usermod -a -G root,waboring www-data
 
 # Setup the root shell
 RUN cd /root && wget -qO - https://raw.githubusercontent.com/hemna/.dotfiles/master/bootstrap.sh | bash
 
 # Now get the app
-RUN ls -al
-RUN cd /root && git clone https://github.com/hemna/wx.hemna.com.git wx.hemna.com
-RUN cd /root/wx.hemna.com && git pull --all
-RUN cd /root && git clone https://git.code.sf.net/p/phphtmllib/git phphtmllib-git && \
-    ln -s /root/phphtmllib-git/phphtmllib /root/wx.hemna.com/lib/external/phphtmllib
-
-# Update the config.inc
-RUN sed -i "s/$config\->set('videodir'.*/$config\->set('videodir','wx.hemna.com:wx.hemna.com\/htdocs\/video');/" /root/wx.hemna.com/lib/config.inc
-RUN sed -i "s/$config\->set('imagesdir'.*/$config\->set('imagesdir','\/wxcam');/" /root/wx.hemna.com/lib/config.inc
-RUN sed -i "s/$config\->set('imgs2avi'.*/$config\->set('imgs2avi', '\/root\/.bin\/imgs2avi.sh');/" /root/wx.hemna.com/lib/config.inc
-RUN sed -i "s/$config\->set('encoder'.*/$config\->set('encoder', '\/usr\/bin\/ffmpeg');/" /root/wx.hemna.com/lib/config.inc
-
-RUN sed -i 's/WXCAM=.*/WXCAM="\/wxcam"/' /root/wx.hemna.com/bin/aircam.sh
-RUN sed -i 's/PHP=.*/PHP="\/usr\/local\/bin\/php"/' /root/wx.hemna.com/bin/aircam.sh
+# RUN ls -al
+RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php.ini
 
 COPY .local.sh /root/.local.sh
 COPY crontab.sh /root/crontab.sh
@@ -76,8 +73,11 @@ COPY run.sh /root
 RUN chmod 755 /root/run.sh
 COPY update-config.sh /root
 RUN chmod 755 /root/update-config.sh
+COPY install-app.sh /root
+RUN chmod 755 /root/install-app.sh
 
 WORKDIR /wxcam
 
-VOLUME ["/wxcam"]
-CMD ["/root/run.sh"]
+VOLUME ["/wxcam", "/wx.hemna.com"]
+ENTRYPOINT ["/root/run.sh"]
+# CMD ["/root/run.sh"]
