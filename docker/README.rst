@@ -11,3 +11,9 @@ Prior to running docker build:
 sed -i "s/$config\->set('DB_USERNAME'.*/$config\->set('DB_USERNAME', 'ASS');/" /root/wx.hemna.com/lib/config.inc
 sed -i "s/$config\->set('DB_PASSWORD'.*/$config\->set('DB_PASSWORD', 'ASS');/" /root/wx.hemna.com/lib/config.inc
 
+
+BUILDING
+docker build -t hemna/wx.hemna.com:latest
+
+Starting the container
+docker run -d --name wx.hemna.com2 -p 8888:80 --mount type=bind,source="/home/waboring/docker/wx.hemna.com",target="/wx.hemna.com" hemna/wx.hemna.com:latest build
