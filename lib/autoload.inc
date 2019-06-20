@@ -1,7 +1,7 @@
 <?php
 /**
  * This is an auto-generated file. Please do not modify!
- * Generated on 2019-06-20T01:38:20+00:00 by AutoloadGenerator
+ * Generated on 2019-06-20T13:53:20+00:00 by AutoloadGenerator
  *
  * @package open2300
  */
@@ -182,6 +182,7 @@ static $class = array(
 'MessageBoxOKCancel'=>'external/phphtmllib/src/widgets/MessageBoxOKCancel.inc',
 'MessageBoxWidget'=>'external/phphtmllib/src/widgets/MessageBoxWidget.inc',
 'MetarTextCurrentConditions'=>'modules/home/widgets/MetarTextCurrentConditions.inc',
+'myChartsJSGraph'=>'modules/graphs/myChartsJSGraph.inc',
 'myD3Graph'=>'modules/graphs/myD3Graph.inc',
 'myFlashGauge'=>'modules/graphs/gauge/myFlashGauge.inc',
 'myFlashGraph'=>'modules/graphs/flash/myFlashGraph.inc',
@@ -240,6 +241,7 @@ static $class = array(
 'TabList'=>'external/phphtmllib/src/widgets/TabList.inc',
 'TabListCSS'=>'external/phphtmllib/src/widgets/css/TabListCSS.inc',
 'TabWidget'=>'external/phphtmllib/src/widgets/TabWidget.inc',
+'TempDewPointChartsJSGraph'=>'modules/graphs/TempDewPointChartsJSGraph.inc',
 'TempDewPointHighChartsGraph'=>'modules/graphs/TempDewPointHighChartsGraph.inc',
 'TempDewPointLineFlashGraph'=>'modules/graphs/flash/TempDewPointLineFlashGraph.inc',
 'TempDewPointLineGraph'=>'modules/graphs/TempDewPointLineGraph.inc',

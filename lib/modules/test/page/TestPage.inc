@@ -37,7 +37,6 @@ class TestPage extends open2300Page {
         //$this->add_js_link("http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js");
         $this->add_js_link("https://cdn.jsdelivr.net/gh/jquery/jquery@3/dist/jquery.min.js");
         $this->add_js_link("https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js");
-        $this->add_js_link("/js/hc.js");
         $this->add_js_link("/js/main.js");
         $this->add_js_link("/js/ticker.js");
         $this->add_js_link("/js/banner.js");
@@ -62,20 +61,6 @@ class TestPage extends open2300Page {
 		$left_div = new DIVtag(array('id'=> ''));
 
         $left_div->add(new DIVtag(array('style' => "width: 320px;"),new CurrentConditions($this->wx)));
-        $left_div->add(BRtag::factory());
-        $winddiv = new DIVtag(array("id" => "idWindContainer",
-                                    "style" => "position:relative;height:200px;-moz-border-radius: 5px; -webkit-border-radius: 5px;border:1px solid blue;padding:5px;"));
-        $winddiv->add(new DIVtag(
-            array('id' => 'idWindDirGaugediv',
-            'style'=> 'float:left;padding-top:0px;padding-bottom:5px;height:200px;width:150px;')
-        ));
-        $winddiv->add(new WindDirectionHighChartsGauge());
-        $winddiv->add(new DIVtag(
-            array('id' => 'idWindSpeedGaugediv',
-            'style'=> 'float:right;padding-top:0px;padding-bottom:5px;height:200px;width:150px;')
-        ));
-        $winddiv->add(new WindSpeedHighChartsGauge());
-        $left_div->add($winddiv);
         $left_div->add(BRtag::factory());
 
         $curdate = date("Ymd");
@@ -106,11 +91,14 @@ class TestPage extends open2300Page {
         ));
         $right_div->add(new DailyWXGraph(20));
 
-        $right_div->add(new DIVtag(
-            array('id' => 'idTestGraphdiv',
-            'style'=> 'padding-top:0px;padding-bottom:5px;height:200px;width:510px;')
-        ));
-        $right_div->add(new TestChartsGraph());
+        $right_div->add(
+            new DIVtag(
+                array('style'=> 'padding-top:0px;padding-bottom:5px;height:200px;width:510px;'),
+                new CANVAStag(
+                    array('id' => 'idTempDewPoint', 'width' => '510', 'height' => '200')
+                )
+            ));
+        $right_div->add(new TempDewPointChartsJSGraph());
 
 
         //$this->add_js_link('/js/lightview/lightview.js');

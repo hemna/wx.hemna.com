@@ -27,7 +27,7 @@ $config->set('DB_PASSWORD', 'mywxstation');
 
 //allow page caching?
 $config->set('page_cache_enabled', 1);
-$config->set("debug", False);
+$config->set("debug", True);
 
 //app specific settings
 $config->set('station_name', 'HEMNA');
@@ -60,7 +60,7 @@ $config->set('encoder', '/usr/bin/ffmpeg');
 $config->set('avi_daemon_wait', 900);
 
 //error_reporting(E_ALL ^ E_DEPRECATED)
-error_reporting(0);
+//error_reporting(0);
 date_default_timezone_set("America/New_York");
 
 ?>

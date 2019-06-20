@@ -3,7 +3,7 @@
  *
  */
 
-abstract class myChartsGraph {
+abstract class myChartsJSGraph {
 
     protected $date = null;
 

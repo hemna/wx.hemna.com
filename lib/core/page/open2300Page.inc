@@ -65,6 +65,10 @@ class open2300Page extends AjaxablePage implements Cacheable {
     }
 
 
+    public function build_doctype($link1=NULL, $link2=NULL) {
+        $attributes = array("html");
+        $this->_doctype = new DOCTYPEtag($attributes);
+    }
 
     /**
      * This function should return an array

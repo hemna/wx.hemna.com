@@ -3,7 +3,7 @@
  *
  */
 
-class TempDewPointChartsGraph extends myChartsGraph {
+class TempDewPointChartsJSGraph extends myChartsJSGraph {
     
     protected $temp_data = array();
     protected $dewp_data = array();
@@ -21,9 +21,12 @@ class TempDewPointChartsGraph extends myChartsGraph {
                  * @param $wx weatherDataObject
                  */
                 $datetime = strtotime($wx->get_datetime()) * 1000;
+                //$date = date("m-d-Y H:i:s", $wx->get_datetime());
+                $date = $wx->get_datetime();
                 $temp_value = $wx->get_temp_out();
-                $this->temp_data[] =  '['.  $datetime.','.$temp_value.']';
-                $this->temp_json_data[] = array($datetime, floatval($temp_value));
+                $this->temp_data[] =  "{t:".$datetime.",y:".$temp_value."}";
+                $this->temp_json_data[] = array("t"=>$datetime,
+                                                "y"=>floatval($temp_value));
 
                 $dewp_value = $wx->get_dewpoint();
                 $this->dewp_data[] = '['.$datetime.','.$dewp_value.']';
@@ -43,69 +46,57 @@ class TempDewPointChartsGraph extends myChartsGraph {
     }
 
     public function render_graph() {
-        $data = "[".join($this->temp_data, ",")."]";
+        //$data = "[".join($this->temp_data, ",")."]";
+//var tempdewdata = [".join($this->temp_data, ',')."];
         $js = "
+var tempdewdata = [".join($this->temp_data[0], ',')."];
 var tempdewpointoptions = {
-    chart: {
-          type: 'spline',
-          renderTo: 'idTempDewPointLineGraphdiv',
-          zoomType: 'x',
-          borderWidth: 1,
-          marginBottom: 50,
-          marginTop: 32,
-          plotShadow: true,
-          plotBackgroundColor: '#ffffff',
-          backgroundColor: {
-              linearGradient: [0,0,500,500],
-              stops: [
-                  [0, '#ffffff'],
-                  [1, '#cccacc']
-              ]
-          },
-    },
-    plotOptions: {
-        series: {
-            animation: {
-                duration: 2000
-            },
-            marker: { radius: 3 },
-        }
-    },
-    title: {
-        text: 'Temperature'
-    },
-    xAxis: {
-        type: 'datetime',
-        //tickInterval: 60*60*24*100,
-        tickPixelInterval: 50,
-        tickwidth: 1,
-        gridLineWidth: 1,
-        /*plotBands: {
-            color: '#e6e4e6',
-            from: ".($this->sunrise*1000).",
-            to: ".($this->sunset*1000).",
-        }*/
-    },
-    yAxis:{
-        title: 'Temperature',
-        //tickInterval: 2,
-        tickPixelInterval: 10,
-        tickwidth: 0,
-        gridLineWidth: 1,
-    },
-    series: [{
-        name: 'Temperature °F',
-        color: '#ff0000',
-        data:  [".join($this->temp_data, ',')."],
-    },
-    {
-        name: 'Dewpoint °F',
-        color: '#006600',
-        data: [".join($this->dewp_data, ',')."],
-    }]
+    type: 'bar',
+    data: {
+        datasets: [{
+            label: 'Temperature °F',
+            backgroundColor: '#ffffff',
+            borderColor: '#ff0000',
+            data: tempdewdata,
+            type: 'line',
+            pointRadius: 0,
+            fill: false,
+            lineTension: 0,
+            borderWidth: 2
+        }],
+    options: {
+        scales: {
+           xAxes: [{
+               type: 'time',
+               distribution: 'series',
+           }],
+           yAxes: [{
+               scaleLabel: {
+                   display: true,
+                   labelString: 'Temperature °F',
+               }
+           }],
+        },
+        tooltips: {
+            interect: false,
+			mode: 'index',
+			callbacks: {
+				label: function(tooltipItem, myData) {
+					var label = myData.datasets[tooltipItem.datasetIndex].label || '';
+					if (label) {
+						label += ': ';
+					}
+					label += parseFloat(tooltipItem.value).toFixed(2);
+					return label;
+				}
+			}
+		 }
+      }
+    }
 }
 
-var tempdewpoint = new Highcharts.Chart(tempdewpointoptions);
+ctx = document.getElementById('idTempDewPoint').getContext('2d');
+var chart = new Chart(ctx, tempdewpointoptions);
 ";
 
         return "<script type=\"text/javascript\">".$js."</script>";
@@ -121,7 +112,8 @@ var tempdewpoint = new Highcharts.Chart(tempdewpointoptions);
                               "shadow" => "true",
                               "data" => $this->dewp_json_data);
         $series = array($temp_series, $dewp_series);
-        return json_encode($series);
+        //return json_encode($series);
+        return json_encode($temp_series);
     }
 }
 ?>
