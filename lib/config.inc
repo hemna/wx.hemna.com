@@ -9,7 +9,7 @@
 $GLOBALS['config'] = Config::singleton();
 
 $config->set('widget_image_path', '/images/widgets');
-$config->set('file_cache_dir', '/home/waboring/wx-cache-dir/file');
+$config->set('file_cache_dir', '/wx.hemna.com/cache');
 $config->set('airport_file_cache_dir', '/home/waboring/wx-cache-dir/airports');
 $config->set('controller_request_debug', 0);
 $config->set('cache_enabled', 1);
@@ -21,8 +21,8 @@ $config->set('DB_TYPE', 'mysql');
 $config->set('DB_HOST', 'mysql.newsblob.com');
 $config->set('DB_PORT', '3306');
 $config->set('DB_NAME', 'open2300');
-$config->set('DB_USERNAME', 'user');
-$config->set('DB_PASSWORD', 'password');
+$config->set('DB_USERNAME', 'hemnawx');
+$config->set('DB_PASSWORD', 'mywxstation');
 
 
 //allow page caching?
@@ -42,9 +42,9 @@ $GLOBALS['config']->set('db_debug', false);
 
 //the directory on the gentoo box that the camera
 //dumps the images.
-$config->set('imagesdir', $GLOBALS["path_base"]."/wxcam");
+$config->set('imagesdir','/wxcam');
 //the video dir where the movies go on hosting provider
-$config->set('videodir', realpath($GLOBALS["path_base"])."/htdocs/video");
+$config->set('videodir','wx.hemna.com:wx.hemna.com/htdocs/video');
 
 //the current season (for banner images)
 $config->set("season", "winter");
@@ -52,9 +52,9 @@ $config->set("sitename", "wx.hemna.com");
 
 
 //For the avi daemon
-$config->set('imgs2avi', '/home/waboring/local/bin/imgs2avi.sh');
+$config->set('imgs2avi', '/root/.bin/imgs2avi.sh');
 // Which encoder to use?
-$config->set('encoder', '/usr/bin/avconv');
+$config->set('encoder', '/usr/bin/ffmpeg');
 //How many seconds to wait in between each encoding run
 // 15 minutes
 $config->set('avi_daemon_wait', 900);

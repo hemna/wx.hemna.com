@@ -4,12 +4,12 @@ DATE=`date +%Y%m%d`
 HUMANDATE=`TZ=America/New_York date +%A\ %b\ %e,\ %Y\ \ %T\ %Z`
 
 WX_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )"/.. && pwd )"
-PHP=`which php`
+PHP="/usr/local/bin/php"
 
 FONT="${WX_DIR}/bin/Verdana_Bold.ttf"
 #WXINFO="60F"
 WXINFO=`cd ${WX_DIR}/bin && $PHP -f img_wx_string.php`
-WXCAM="${WX_DIR}/wxcam"
+WXCAM="/wxcam"
 TMP="${WX_DIR}/tmp"
 
 # Username and password for the

@@ -1,7 +1,7 @@
 <?php
 /**
  * This is an auto-generated file. Please do not modify!
- * Generated on 2019-03-03T17:55:10+00:00 by AutoloadGenerator
+ * Generated on 2019-06-20T01:38:20+00:00 by AutoloadGenerator
  *
  * @package open2300
  */
@@ -74,7 +74,6 @@ static $class = array(
 'DebugPanelWidget'=>'external/phphtmllib/src/widgets/DebugPanelWidget.inc',
 'DefaultHTMLDataList'=>'external/phphtmllib/src/datalist/DefaultHTMLDataList.inc',
 'DefaultHTMLDataListCSS'=>'external/phphtmllib/src/datalist/DefaultHTMLDataListCSS.inc',
-'DevPage'=>'modules/dev/page/DevPage.inc',
 'DialogWidget'=>'external/phphtmllib/src/widgets/DialogWidget.inc',
 'ErrorBoxWidget'=>'external/phphtmllib/src/widgets/ErrorBoxWidget.inc',
 'ErrorBoxWidgetCSS'=>'external/phphtmllib/src/widgets/css/ErrorBoxWidgetCSS.inc',
@@ -244,6 +243,7 @@ static $class = array(
 'TempDewPointHighChartsGraph'=>'modules/graphs/TempDewPointHighChartsGraph.inc',
 'TempDewPointLineFlashGraph'=>'modules/graphs/flash/TempDewPointLineFlashGraph.inc',
 'TempDewPointLineGraph'=>'modules/graphs/TempDewPointLineGraph.inc',
+'TestPage'=>'modules/test/page/TestPage.inc',
 'TextCSSNav'=>'external/phphtmllib/src/widgets/TextCSSNav.inc',
 'TextCSSNavCSS'=>'external/phphtmllib/src/widgets/css/TextCSSNavCSS.inc',
 'TextCurrentConditions'=>'modules/home/widgets/TextCurrentConditions.inc',
@@ -291,7 +291,6 @@ static $target = array(
 'daily-w-x-graph'=>'DailyWXGraph',
 'dark-blue-theme'=>'DarkBlueTheme',
 'debug-panel-w'=>'DebugPanelWidget',
-'dev'=>'DevPage',
 'dialog-w'=>'DialogWidget',
 'dl'=>'WeatherDataListPage',
 'error-box-w'=>'ErrorBoxWidget',
@@ -339,6 +338,7 @@ static $target = array(
 'temp-dew-point-high-charts-graph'=>'TempDewPointHighChartsGraph',
 'temp-dew-point-line-flash-graph'=>'TempDewPointLineFlashGraph',
 'temp-dew-point-line-graph'=>'TempDewPointLineGraph',
+'test'=>'TestPage',
 'text'=>'TextCurrentConditions',
 'text-c-s-s-nav'=>'TextCSSNav',
 'text-nav'=>'TextNav',
@@ -382,7 +382,6 @@ static $target_lookup = array(
 'DailyWXGraph'=>'daily-w-x-graph',
 'DarkBlueTheme'=>'dark-blue-theme',
 'DebugPanelWidget'=>'debug-panel-w',
-'DevPage'=>'dev',
 'DialogWidget'=>'dialog-w',
 'WeatherDataListPage'=>'dl',
 'ErrorBoxWidget'=>'error-box-w',
@@ -430,6 +429,7 @@ static $target_lookup = array(
 'TempDewPointHighChartsGraph'=>'temp-dew-point-high-charts-graph',
 'TempDewPointLineFlashGraph'=>'temp-dew-point-line-flash-graph',
 'TempDewPointLineGraph'=>'temp-dew-point-line-graph',
+'TestPage'=>'test',
 'TextCurrentConditions'=>'text',
 'TextCSSNav'=>'text-c-s-s-nav',
 'TextNav'=>'text-nav',
