@@ -16,7 +16,7 @@ class TempDewPointHighChartsGraph extends myHighChartsGraph {
             $collection = weatherDataObject::find_all(
                 "datetime like :date",
                 array(':date'=> $today.'%'),
-                "order by datetime asc",
+                "order by datetime asc"
             );
 
             foreach($collection as $wx) {
