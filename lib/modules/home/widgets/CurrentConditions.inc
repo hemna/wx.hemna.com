@@ -26,56 +26,54 @@ class CurrentConditions extends AjaxableHTMLWidget {
 	 * Class Constructor
 	 *
 	 */
-	public function __construct(weatherDataObject $wx=null) {
+	public function __construct($load=True) {
 		$log = Log::singleton();
 		parent::__construct();
-		if ($wx == null) {
+		if ($load) {
 			//we don't have the current conditions.
 			//we need to get them
 			$this->wx = weatherDataObject::find("1=1 order by datetime desc limit 0,1");
-		} else {
-			$this->wx = $wx;
-		}
 
-		//load min max temps
-		$db = open2300DB::singleton();
-		$today = date("Y-m-d");
-		$stmt = $db->queryBindOneRowCache("Select min(temp_out) as low, max(temp_out) as high from weather where datetime like :date",
-		array(":date" => $today.'%'));
-		$this->temp_low_high["low"] = $stmt->low;
-		$this->temp_low_high["high"] = $stmt->high;
+            //load min max temps
+            $db = open2300DB::singleton();
+            $today = date("Y-m-d");
+            $stmt = $db->queryBindOneRowCache("Select min(temp_out) as low, max(temp_out) as high from weather where datetime like :date",
+            array(":date" => $today.'%'));
+            $this->temp_low_high["low"] = $stmt->low;
+            $this->temp_low_high["high"] = $stmt->high;
 
-		$year = date("Y");
-		$stmt = $db->queryBindOneRowCache("Select rain_total from weather where datetime like :date order by datetime asc limit 0,1",
-		array(":date" => $year.'%'));
-        if (!is_null($stmt) && $stmt) {
-		    $year_rain_start = $stmt->rain_total;
-        } else {
-            $year_rain_start = 0;
-        }
+            $year = date("Y");
+            $stmt = $db->queryBindOneRowCache("Select rain_total from weather where datetime like :date order by datetime asc limit 0,1",
+            array(":date" => $year.'%'));
+            if (!is_null($stmt) && $stmt) {
+                $year_rain_start = $stmt->rain_total;
+            } else {
+                $year_rain_start = 0;
+            }
 
-		$this->rain_total = sprintf("%0.2f", $this->wx->get_rain_total() - $year_rain_start);
+            $this->rain_total = sprintf("%0.2f", $this->wx->get_rain_total() - $year_rain_start);
 
-		//get the peak winds
-		//$db->set_debug_flag(true);
-		$sql = "select datetime,wind_speed, wind_angle, wind_direction from weather where ".
-               "wind_speed = (select max(wind_speed) from weather where datetime like :date) ".
-               "and datetime like :date2";
-		$stmt = $db->queryBindOneRow($sql,
-		                             array(":date" => $today.'%', ":date2" => $today.'%'));
-		$log->debug(var_export($stmt,true));
-        if (!is_null($stmt) && $stmt) {
-		    $this->peak_wind['speed'] = $stmt->wind_speed;
-		    $this->peak_wind['angle'] = $stmt->wind_angle;
-		    $this->peak_wind['direction'] = $stmt->wind_direction;
-		    $this->peak_wind['time'] = substr($stmt->datetime,10);
-		    //$log->debug("peak wind was ".$stmt->wind_speed);
-        } else {
-		    $this->peak_wind['speed'] = 0;
-		    $this->peak_wind['angle'] = 0;
-		    $this->peak_wind['direction'] = 0;
-		    $this->peak_wind['time'] = 0;
-        }
+            //get the peak winds
+            //$db->set_debug_flag(true);
+            $sql = "select datetime,wind_speed, wind_angle, wind_direction from weather where ".
+                   "wind_speed = (select max(wind_speed) from weather where datetime like :date) ".
+                   "and datetime like :date2";
+            $stmt = $db->queryBindOneRow($sql,
+                                         array(":date" => $today.'%', ":date2" => $today.'%'));
+            $log->debug(var_export($stmt,true));
+            if (!is_null($stmt) && $stmt) {
+                $this->peak_wind['speed'] = $stmt->wind_speed;
+                $this->peak_wind['angle'] = $stmt->wind_angle;
+                $this->peak_wind['direction'] = $stmt->wind_direction;
+                $this->peak_wind['time'] = substr($stmt->datetime,10);
+                //$log->debug("peak wind was ".$stmt->wind_speed);
+            } else {
+                $this->peak_wind['speed'] = 0;
+                $this->peak_wind['angle'] = 0;
+                $this->peak_wind['direction'] = 0;
+                $this->peak_wind['time'] = 0;
+            }
+            }
 	}
 
 	public function get_content() {
@@ -87,39 +85,66 @@ class CurrentConditions extends AjaxableHTMLWidget {
 		$title = DIVtag::factory('cctitle', "Current Conditions  -- Updated : ", new SPANtag(array('id' => 'idUpdateSeconds'),''));
 		$div->add($title);
 
-		//now add the update block
-		$update_div = new DIVtag(array('id' => 'idcclastupdate'), $this->wx->get_datetime());
+        //now add the update block
+        if ($this->wx) {
+            $datetime = $this->wx->get_datetime();
+        } else {
+            $datetime = date('Y-m-d');
+        }
+		$update_div = new DIVtag(array('id' => 'idcclastupdate'), $datetime);
 		$div->add($update_div);
 
 
-		$table = TABLEtag::factory("100%",0,2);
-		$outside_temp = $this->wx->get_temp_out();
+        $table = TABLEtag::factory("100%",0,2);
+        if ($this->wx) {
+            $outside_temp = $this->wx->get_temp_out();
+            $wx_forecast = $this->wx->get_forecast();
+            $windchill = $this->wx->get_wind_chill();
+            $humidity_out = $this->wx->get_rel_hum_out();
+            $wind_angle = $this->wx->get_wind_angle();
+            $wind_direction = $this->wx->get_wind_direction();
+            $wind_speed = $this->wx->get_wind_speed();
+		    $pressure = $this->wx->get_rel_pressure();
+            $rain_1h = $this->wx->get_rain_1h();
+            $rain_24h = $this->wx->get_rain_24h();
+		    $inside_temp = $this->wx->get_temp_in();
+        } else {
+            $outside_temp = 'N/A';
+            $wx_forecast = 'N/A';
+            $windchill = 'N/A';
+            $humidity_out = 'N/A';
+            $wind_angle = 0;
+            $wind_direction = 'N/A';
+            $wind_speed = 0;
+            $pressure = 0;
+            $rain_1h = 0;
+            $rain_24h = 0;
+            $inside_temp = 0;
+        }
 		$table->add_row(new TDtag(array("width" => "120"),"Outside :"),
 		new DIVtag(array('style' => 'text-align:center; padding-top:2px;height:75px; background-color:#ffffcc;'),
 		new SPANtag(array('id' => 'idTempF', 'style' => 'font-weight:bold;'),$outside_temp)," F / ",
 		new SPANtag(array('id' => 'idTempC','style' => 'font-weight:bold;'),WXConversion::fahrenheit_to_celsius($outside_temp)),' C / ',
 		new SPANtag(array('id' => 'idTempK','style' => 'font-weight:bold;'),WXConversion::fahrenheit_to_kelvin($outside_temp)), " K",
-		BRtag::factory(), $this->wx->get_forecast(),
-		new DIVtag(array('style' => 'padding-top:5px;'), 'Feels like '.$this->wx->get_wind_chill()." F"),
+		BRtag::factory(), $wx_forecast,
+		new DIVtag(array('style' => 'padding-top:5px;'), 'Feels like '.$windchill." F"),
 		new DIVtag(array('style' => 'padding-top:5px;'), $this->temp_low_high["low"].' F / '.$this->temp_low_high["high"].' F   Low/High')));
 
-		$table->add_row("Relative Humidity : ", $this->wx->get_rel_hum_out().' %');
+		$table->add_row("Relative Humidity : ", $humidity_out.' %');
 
 		//wind
-		$table->add_row("Wind : ",new TDtag(array(), SPANtag::factory('',"From the ".$this->wx->get_wind_direction()." ".$this->wx->get_wind_speed().'mph@'.$this->wx->get_wind_angle()),
-		$this->get_wind_angle_image($this->wx->get_wind_angle()),
+		$table->add_row("Wind : ",new TDtag(array(), SPANtag::factory('',"From the ".$wind_direction." ".$wind_speed.'mph@'.$wind_angle),
+		$this->get_wind_angle_image($wind_angle),
 		SPANtag::factory('',"Peak winds ".$this->peak_wind['direction']." ".$this->peak_wind['speed'].'mph@'.$this->peak_wind['angle']."&nbsp;".$this->peak_wind['time'])));
 
 		$table->add_row("&nbsp;", "&nbsp;");
-		$pressure = $this->wx->get_rel_pressure();
 		$table->add_row("Pressure : ", $pressure. ' inHG / '.WXConversion::inchmercury_to_millibars($pressure). ' mbar');
 		 
 		 
-		$table->add_row('Rainfall : ',$this->wx->get_rain_1h().'"/ '.$this->wx->get_rain_24h().'" / '.$this->rain_total.'"<br>'.
+		$table->add_row('Rainfall : ',$rain_1h.'"/ '.$rain_24h.'" / '.$this->rain_total.'"<br>'.
                         '&nbsp;&nbsp;1hr / 24hrs / total.');
 
 		$table->add_row("&nbsp;", "&nbsp;");
-		$inside_temp = $this->wx->get_temp_in();
 		$table->add_row('Inside : ', $inside_temp." F / ". WXConversion::fahrenheit_to_celsius($inside_temp).'C / '.WXConversion::fahrenheit_to_kelvin($inside_temp). " K");;
 
 

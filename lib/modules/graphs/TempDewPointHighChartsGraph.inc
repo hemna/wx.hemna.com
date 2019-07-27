@@ -13,8 +13,11 @@ class TempDewPointHighChartsGraph extends myHighChartsGraph {
         $cache_key = "TempDewPointHighChartsGraphData_".$today;
         $cache_data = $this->cache->get($cache_key);
         if ($cache_data === false) {
-            $collection = weatherDataObject::find_all("datetime like :date order by datetime asc",
-                                                      array(':date'=> $today.'%'));
+            $collection = weatherDataObject::find_all(
+                "datetime like :date",
+                array(':date'=> $today.'%'),
+                "order by datetime asc",
+            );
 
             foreach($collection as $wx) {
                 /**

@@ -18,7 +18,7 @@ abstract class myHighChartsGraph {
      * Class Constructor
      *
      */
-    public function __construct($date=null) {
+    public function __construct($date=null, $load=True) {
         $this->cache = $this->get_cache_object();
 
         if (!is_null($date)) {
@@ -30,10 +30,12 @@ abstract class myHighChartsGraph {
             }
         }
         $this->build_sunrise_sunset();
-        
-        $this->load_data();          
+
+        if ($load) {
+            $this->load_data();
+        }
     }
-    
+
     public function render() {
         $data_only = Request::singleton()->get("dataOnly", False);
         if ($data_only) {

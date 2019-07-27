@@ -18,7 +18,6 @@ class HomePage extends open2300Page {
 
     function __construct() {
         parent::__construct('Hemna WX Station');
-        $this->wx = weatherDataObject::find("1=1 order by datetime desc limit 0,1");
         $this->include_ticker = FALSE;
     }
 
@@ -60,7 +59,7 @@ class HomePage extends open2300Page {
 
 		$left_div = new DIVtag(array('id'=> ''));
 
-        $left_div->add(new DIVtag(array('style' => "width: 320px;"),new CurrentConditions($this->wx)));
+        $left_div->add(new DIVtag(array('style' => "width: 320px;"),new CurrentConditions(False)));
         $left_div->add(BRtag::factory());
         $winddiv = new DIVtag(array("id" => "idWindContainer",
                                     "style" => "position:relative;height:200px;-moz-border-radius: 5px; -webkit-border-radius: 5px;border:1px solid blue;padding:5px;"));
@@ -68,12 +67,12 @@ class HomePage extends open2300Page {
             array('id' => 'idWindDirGaugediv',
             'style'=> 'float:left;padding-top:0px;padding-bottom:5px;height:200px;width:150px;')
         ));
-        $winddiv->add(new WindDirectionHighChartsGauge());
+        $winddiv->add(new WindDirectionHighChartsGauge(null, False));
         $winddiv->add(new DIVtag(
             array('id' => 'idWindSpeedGaugediv',
             'style'=> 'float:right;padding-top:0px;padding-bottom:5px;height:200px;width:150px;')
         ));
-        $winddiv->add(new WindSpeedHighChartsGauge());
+        $winddiv->add(new WindSpeedHighChartsGauge(null, False));
         $left_div->add($winddiv);
         $left_div->add(BRtag::factory());
 
@@ -109,31 +108,31 @@ class HomePage extends open2300Page {
             array('id' => 'idTempDewPointLineGraphdiv',
             'style'=> 'padding-top:0px;padding-bottom:5px;height:200px;width:510px;')
         ));
-        $right_div->add(new TempDewPointHighChartsGraph());
+        $right_div->add(new TempDewPointHighChartsGraph(null, False));
 
         $right_div->add(new DIVtag(
             array('id' => 'idInsideTempLineGraphdiv',
             'style'=> 'padding-top:0px;padding-bottom:5px;height:200px;width:510px;')
         ));
-        $right_div->add(new InsideTempHighChartsGraph());
+        $right_div->add(new InsideTempHighChartsGraph(null, False));
 
         $right_div->add(new DIVtag(
             array('id' => 'idPressureLineGraphdiv',
             'style'=> 'padding-top:0px;padding-bottom:5px;height:200px;width:510px;')
         ));
-        $right_div->add(new PressureHighChartsGraph());
+        $right_div->add(new PressureHighChartsGraph(null, False));
 
         $right_div->add(new DIVtag(
             array('id' => 'idWindLineGraphdiv',
             'style'=> 'padding-top:0px;padding-bottom:5px;height:200px;width:510px;')
         ));
-        $right_div->add(new WindSpeedHighChartsGraph());
+        $right_div->add(new WindSpeedHighChartsGraph(null, False));
 
         $right_div->add(new DIVtag(
             array('id' => 'idRainLineGraphdiv',
             'style'=> 'padding-top:0px;padding-bottom:5px;height:200px;width:510px;')
         ));
-        $right_div->add(new RainHighChartsGraph());
+        $right_div->add(new RainHighChartsGraph(null, False));
 
         //$this->add_js_link('/js/lightview/lightview.js');
 		//$this->add_css_link('/css/lightview/lightview.css');
