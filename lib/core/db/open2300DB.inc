@@ -33,9 +33,13 @@ class open2300DB extends DataBase {
     public static function factory() {
         global $config;
 
-        $dsn = DataBase::dsn($config->get('DB_TYPE'),
-                             $config->get('DB_NAME'),
-                             $config->get('DB_HOST'));
+        if ($config->get('DB_TYPE') == 'sqlite') {
+            $dsn = 'sqlite:'.$config->get('DB_FILE');
+        } else {
+            $dsn = DataBase::dsn($config->get('DB_TYPE'),
+                                 $config->get('DB_NAME'),
+                                 $config->get('DB_HOST'));
+        }
         return new open2300DB($dsn,$config->get('DB_USERNAME'),$config->get('DB_PASSWORD'));
     }
 

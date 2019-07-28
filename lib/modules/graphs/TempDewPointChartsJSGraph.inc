@@ -13,8 +13,11 @@ class TempDewPointChartsJSGraph extends myChartsJSGraph {
         $cache_key = "TempDewPointChartsGraphData_".$today;
         $cache_data = $this->cache->get($cache_key);
         if ($cache_data === false) {
-            $collection = weatherDataObject::find_all("datetime like :date order by datetime asc",
-                                                      array(':date'=> $today.'%'));
+            $collection = weatherDataObject::find_all(
+                "datetime like :date",
+                array(':date'=> $today.'%'),
+                'order by datetime asc',
+                'limit 0,10');
 
             foreach($collection as $wx) {
                 /**
@@ -24,13 +27,13 @@ class TempDewPointChartsJSGraph extends myChartsJSGraph {
                 //$date = date("m-d-Y H:i:s", $wx->get_datetime());
                 $date = $wx->get_datetime();
                 $temp_value = $wx->get_temp_out();
-                $this->temp_data[] =  "{t:".$datetime.",y:".$temp_value."}";
-                $this->temp_json_data[] = array("t"=>$datetime,
+                $this->temp_data[] =  "{t: '".$date."', y: '".$temp_value."'}";
+                $this->temp_json_data[] = array("t"=>$date,
                                                 "y"=>floatval($temp_value));
 
                 $dewp_value = $wx->get_dewpoint();
-                $this->dewp_data[] = '['.$datetime.','.$dewp_value.']';
-                $this->dewp_json_data[] = array($datetime, floatval($dewp_value));
+                $this->dewp_data[] = "['".$date."',".$dewp_value."]";
+                $this->dewp_json_data[] = array($date, floatval($dewp_value));
             }
             $cache_data = array('temp_data' => $this->temp_data,
                                 'temp_json_data' => $this->temp_json_data,
@@ -46,29 +49,34 @@ class TempDewPointChartsJSGraph extends myChartsJSGraph {
     }
 
     public function render_graph() {
-        //$data = "[".join($this->temp_data, ",")."]";
-//var tempdewdata = [".join($this->temp_data, ',')."];
         $js = "
-var tempdewdata = [".join($this->temp_data[0], ',')."];
+var tempdewdata = [ ".join($this->temp_data, ', ')." ];
+tempdewcanvas = document.getElementById('idTempDewPoint');
+console.log(tempdewcanvas.width);
+console.log(tempdewcanvas.height);
 var tempdewpointoptions = {
-    type: 'bar',
+    type: 'line',
     data: {
         datasets: [{
-            label: 'Temperature °F',
-            backgroundColor: '#ffffff',
-            borderColor: '#ff0000',
             data: tempdewdata,
-            type: 'line',
-            pointRadius: 0,
             fill: false,
-            lineTension: 0,
-            borderWidth: 2
+            drawTicks: true
         }],
     options: {
         scales: {
            xAxes: [{
                type: 'time',
-               distribution: 'series',
+               distribution: 'linear',
+               bounds: 'data',
+               time: {
+                   unit: 'second',
+                   minUnit: 'second',
+               },
+               scaleLabel: {
+                   display: true,
+                   labelString: 'Date',
+               }
+
            }],
            yAxes: [{
                scaleLabel: {
@@ -76,27 +84,12 @@ var tempdewpointoptions = {
                    labelString: 'Temperature °F',
                }
            }],
-        },
-        tooltips: {
-            interect: false,
-			mode: 'index',
-			callbacks: {
-				label: function(tooltipItem, myData) {
-					var label = myData.datasets[tooltipItem.datasetIndex].label || '';
-					if (label) {
-						label += ': ';
-					}
-					label += parseFloat(tooltipItem.value).toFixed(2);
-					return label;
-				}
-			}
-		 }
+        }
       }
     }
 }
 
-ctx = document.getElementById('idTempDewPoint').getContext('2d');
-var chart = new Chart(ctx, tempdewpointoptions);
+var chart = new Chart(tempdewcanvas, tempdewpointoptions);
 ";
 
         return "<script type=\"text/javascript\">".$js."</script>";
