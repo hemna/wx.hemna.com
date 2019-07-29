@@ -1,7 +1,7 @@
 <?php
 /**
  * This is an auto-generated file. Please do not modify!
- * Generated on 2019-07-29T17:53:31+00:00 by AutoloadGenerator
+ * Generated on 2019-07-29T18:21:40+00:00 by AutoloadGenerator
  *
  * @package open2300
  */
@@ -210,6 +210,7 @@ static $class = array(
 'PressureHighChartsGraph'=>'modules/graphs/PressureHighChartsGraph.inc',
 'PressureLineGraph'=>'modules/graphs/PressureLineGraph.inc',
 'ProjectGenerator'=>'external/phphtmllib/src/generator/ProjectGenerator.inc',
+'RainChartsJSGraph'=>'modules/graphs/RainChartsJSGraph.inc',
 'RainHighChartsGraph'=>'modules/graphs/RainHighChartsGraph.inc',
 'RainLineGraph'=>'modules/graphs/RainLineGraph.inc',
 'RedTheme'=>'external/phphtmllib/data/css/RedTheme.inc',

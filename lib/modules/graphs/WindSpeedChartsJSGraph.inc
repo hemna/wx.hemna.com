@@ -48,15 +48,6 @@ class WindSpeedChartsJSGraph extends myChartsJSGraph {
 
     public function render_graph() {
         $js = "
-var windlineoptions = {
-    chart: {
-        //type: 'line',
-        renderTo: 'idWindLineGraphdiv',
-        borderWidth: 1,
-        marginBottom: 50,
-";
-
-        $js = "
 var windspeeddata = [ ".join($this->wind_data, ', ')." ];
 var windspeedavgdata = [ ".join($this->graph_average, ', ')." ];
 windctx = document.getElementById('idWindSpeed').getContext('2d');
