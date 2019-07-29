@@ -61,23 +61,23 @@ var tempdewpointoptions = {
     data: {
          datasets: [
              { label: 'Temperature °F',
-			   backgroundColor: color('#FF0000').alpha(0.5).rgbString(),
+	       backgroundColor: color('#FF0000').alpha(0.5).rgbString(),
                borderColor: '#FF0000',
-			   data: tempdata,
-			   type: 'line',
-			   pointRadius: 0,
-			   fill: false,
-			   lineTension: 0,
-               borderWidth: 2 },
+	       data: tempdata,
+	       type: 'line',
+	       pointRadius: 0,
+	       fill: false,
+	       lineTension: 0,
+               borderWidth: 1 },
              { label: 'Dew Point °F',
-			   backgroundColor: color('#333399').alpha(0.5).rgbString(),
-			   borderColor: '#333399',
-			   data: dewpdata,
-			   type: 'line',
-			   pointRadius: 0,
-			   fill: false,
-			   lineTension: 0,
-			   borderWidth: 2 }
+		   backgroundColor: color('#333399').alpha(0.5).rgbString(),
+		   borderColor: '#333399',
+		   data: dewpdata,
+		   type: 'line',
+		   pointRadius: 0,
+		   fill: false,
+		   lineTension: 0,
+		   borderWidth: 1 }
         ]
     },
     options: {

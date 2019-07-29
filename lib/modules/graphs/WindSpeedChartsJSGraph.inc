@@ -21,16 +21,15 @@ class WindSpeedChartsJSGraph extends myChartsJSGraph {
                 /**
                  * @param $wx weatherDataObject
                  */
-		$datetime = strtotime($wx->get_datetime()) * 1000;
 		$date = $wx->get_datetime();
                 $value = $wx->get_wind_speed();
                 $total = $total + $value;
                 $avg = ($total) / $cnt;
                 $this->graph_average[] = "{t: '".$date."', y: '".$avg."'}"; 
-                $this->avg_json_data[] = array($datetime, floatval($avg));
+                $this->avg_json_data[] = array($date, floatval($avg));
                 $cnt++;
                 $this->wind_data[] =  "{t: '".$date."', y: '".$value."'}";
-                $this->wind_json_data[] = array($datetime, floatval($value));
+                $this->wind_json_data[] = array($date, floatval($value));
 
             }
             $cache_data = array('wind_data' => $this->wind_data,

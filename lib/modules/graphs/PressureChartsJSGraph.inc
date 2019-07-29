@@ -21,16 +21,15 @@ class PressureChartsJSGraph extends myChartsJSGraph {
                 /**
                  * @param $wx weatherDataObject
                  */
-                $datetime = strtotime($wx->get_datetime()) * 1000;
                 $date = $wx->get_datetime();
                 $value = $wx->get_rel_pressure();
                 $total = $total + $value;
                 $avg = ($total) / $cnt;
-                $this->graph_average[] = '['.$datetime.','.$avg.']'; 
-                $this->average_json_data[] = array($datetime, floatval($avg));
+                $this->graph_average[] = "{t: '".$date."',y: '".$avg."'}"; 
+                $this->average_json_data[] = array($date, floatval($avg));
                 $cnt++;
                 $this->pressure_data[] =  "{t: '".$date."', y: '".$value."'}";
-                $this->pressure_json_data[] = array($datetime, floatval($value));
+                $this->pressure_json_data[] = array($date, floatval($value));
 
             }
             $cache_data = array('pressure_data' => $this->pressure_data,
@@ -50,6 +49,7 @@ class PressureChartsJSGraph extends myChartsJSGraph {
 
         $js = "
 var presdata = [ ".join($this->pressure_data, ', ')." ];
+var presavgdata = [ ".join($this->graph_average, ', ')." ];
 prctx = document.getElementById('idPressure').getContext('2d');
 prctx.canvas.width = 510;
 prctx.canvas.height = 200;
@@ -59,15 +59,24 @@ var presoptions = {
     type: 'line',
     data: {
          datasets: [
-             { label: 'Barometric Pressure °F',
-			   backgroundColor: color('#333399').alpha(0.5).rgbString(),
-			   borderColor: '#333399',
-			   data: presdata,
-			   type: 'line',
-			   pointRadius: 0,
-			   fill: false,
-			   lineTension: 0,
-               borderWidth: 2 },
+             { label: 'Barometric Pressure inHG',
+               backgroundColor: color('#333399').alpha(0.5).rgbString(),
+               borderColor: '#333399',
+               data: presdata,
+               type: 'line',
+               pointRadius: 0,
+               fill: false,
+               lineTension: 0,
+               borderWidth: 1 },
+             { label: 'Average inHg',
+               backgroundColor: color('#FF0000').alpha(0.5).rgbString(),
+               borderColor: '#FF0000',
+               data: presavgdata,
+               type: 'line',
+               pointRadius: 0,
+	       fill: false,
+               lineTension: 0,
+               borderWidth: 1 },
         ]
     },
     options: {

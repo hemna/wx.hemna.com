@@ -19,11 +19,10 @@ class InsideTempChartsJSGraph extends myChartsJSGraph {
                 /**
                  * @param $wx weatherDataObject
                  */
-                $datetime = strtotime($wx->get_datetime()) * 1000;
                 $date = $wx->get_datetime();
                 $value = $wx->get_temp_in();
                 $this->temp_data[] =  "{t: '".$date."', y:'".$value."'}";
-                $this->json_data[] = array($datetime, floatval($value));
+                $this->json_data[] = array($date, floatval($value));
             }
             $cache_data = array('temp_data' => $this->temp_data,
                                 'json_data' => $this->json_data);
@@ -48,14 +47,14 @@ var intempoptions = {
     data: {
          datasets: [
              { label: 'Inside Temperature °F',
-			   backgroundColor: color('#FF0000').alpha(0.5).rgbString(),
-			   borderColor: '#FF0000',
-			   data: intempdata,
-			   type: 'line',
-			   pointRadius: 0,
-			   fill: false,
-			   lineTension: 0,
-               borderWidth: 2 },
+               backgroundColor: color('#009933').alpha(0.5).rgbString(),
+               borderColor: '#009933',
+               data: intempdata,
+               type: 'line',
+               pointRadius: 0,
+               fill: false,
+               lineTension: 0,
+               borderWidth: 1 },
         ]
     },
     options: {
