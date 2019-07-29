@@ -1,0 +1,142 @@
+<?php
+/**
+ *
+ */
+
+class WindSpeedChartsJSGraph extends myChartsJSGraph {
+
+    protected $temp_data = array();
+
+    public function load_data() {
+        $today = $this->date;
+        $cache_key = get_class($this)."_".$today;
+        $cache_data = $this->cache->get($cache_key);
+        if ($cache_data === false) {
+            $collection = weatherDataObject::find_all("datetime like :date order by datetime asc",
+                                                      array(':date'=> $today.'%'));
+
+            $total = 0;
+            $cnt = 1;
+            foreach($collection as $wx) {
+                /**
+                 * @param $wx weatherDataObject
+                 */
+                $datetime = strtotime($wx->get_datetime()) * 1000;
+                $value = $wx->get_wind_speed();
+                $total = $total + $value;
+                $avg = ($total) / $cnt;
+                $this->graph_average[] = '['.$datetime.','.$avg.']'; 
+                $this->avg_json_data[] = array($datetime, floatval($avg));
+                $cnt++;
+                $this->wind_data[] =  "[".$datetime.",".$value."]";
+                $this->wind_json_data[] = array($datetime, floatval($value));
+
+            }
+            $cache_data = array('wind_data' => $this->wind_data,
+                                'wind_json_data' => $this->wind_json_data,
+                                'graph_avg' => $this->graph_average,
+                                'avg_json_data' => $this->avg_json_data);
+            $this->cache->set($cache_key, $cache_data, $this->cache_lifetime);
+        } else {
+            $this->wind_data = $cache_data['wind_data'];
+            $this->wind_json_data = $cache_data['wind_json_data'];
+            $this->graph_average = $cache_data['graph_avg'];
+            $this->avg_json_data = $cache_data['avg_json_data'];
+        }
+    }
+
+    public function render_graph() {
+        $js = "
+var windlineoptions = {
+    chart: {
+        //type: 'line',
+        renderTo: 'idWindLineGraphdiv',
+        borderWidth: 1,
+        marginBottom: 50,
+";
+
+        $js = "
+var windspeeddata = [ ".join($this->pressure_data, ', ')." ];
+windctx = document.getElementById('idWindSpeed').getContext('2d');
+windctx.canvas.width = 510;
+windctx.canvas.height = 200;
+
+var color = Chart.helpers.color;
+var presoptions = {
+    type: 'line',
+    data: {
+         datasets: [
+             { label: 'Wind Speed mph',
+			   backgroundColor: color('#333399').alpha(0.5).rgbString(),
+			   borderColor: '#333399',
+			   data: presdata,
+			   type: 'line',
+			   pointRadius: 0,
+			   fill: false,
+			   lineTension: 0,
+               borderWidth: 2 },
+        ]
+    },
+    options: {
+        scales: {
+           xAxes: [{
+               type: 'time',
+               distribution: 'linear',
+               bounds: 'data',
+               time: {
+                   unit: 'minute',
+               },
+               ticks: {
+                   autoSkip: true,
+                   maxTicksLimit: 12,
+                   labelOffset: 10,
+                   lineHeight: 1.0
+               },
+               gridLines: {
+                   color: '#bbbbbb',
+                   drawBorder: true,
+                   tickMarkLength: 5
+               }
+           }],
+           yAxes: [{
+               scaleLabel: {
+                   display: false,
+                   labelString: 'Temperature °F',
+               },
+               ticks: {
+                   autoSkip: true,
+                   maxTicksLimit: 12
+               },
+               gridLines: {
+                   color: '#bbbbbb',
+                   drawBorder: true
+               }
+           }],
+        }
+      }
+}
+
+var windc = new Chart(windctx, windoptions);
+";
+
+        return "<script type=\"text/javascript\">".$js."</script>";
+    }
+
+
+    public function render_data() {
+        $wind_series = array("name" => "Wind Speed (mph)",
+                             "type" => "scatter",
+                             "color" => "#0000ff",
+                             "marker" => array("radius" => 2 ),
+                             "shadow" => "true",
+                             "data" => $this->wind_json_data);
+        $avg_series = array("name" => "Average",
+                             "type" => "line",
+                             "color" => "#ff0000",
+                             "shadow" => "true",
+                             "data" => $this->avg_json_data);
+        $series = array($wind_series, $avg_series);
+        return json_encode($series);
+    }
+}
+?>

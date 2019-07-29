@@ -1,7 +1,7 @@
 <?php
 /**
  * This is an auto-generated file. Please do not modify!
- * Generated on 2019-06-20T13:53:20+00:00 by AutoloadGenerator
+ * Generated on 2019-07-29T04:29:41+00:00 by AutoloadGenerator
  *
  * @package open2300
  */
@@ -157,6 +157,7 @@ static $class = array(
 'ImageThumbnailWidgetCSS'=>'external/phphtmllib/src/widgets/css/ImageThumbnailWidgetCSS.inc',
 'InfoTable'=>'external/phphtmllib/src/widgets/InfoTable.inc',
 'InfoTableCSS'=>'external/phphtmllib/src/widgets/css/InfoTableCSS.inc',
+'InsideTempChartsJSGraph'=>'modules/graphs/InsideTempChartsJSGraph.inc',
 'InsideTempHighChartsGraph'=>'modules/graphs/InsideTempHighChartsGraph.inc',
 'InsideTempLineGraph'=>'modules/graphs/InsideTempLineGraph.inc',
 'IP'=>'external/phphtmllib/src/misc/IP.inc',
@@ -205,6 +206,7 @@ static $class = array(
 'phphtmllibException'=>'external/phphtmllib/src/mvc/phphtmllibException.inc',
 'PiwikTracker'=>'external/PiwikTracker.inc',
 'PostRequestBuilder'=>'external/phphtmllib/src/request/PostRequestBuilder.inc',
+'PressureChartsJSGraph'=>'modules/graphs/PressureChartsJSGraph.inc',
 'PressureHighChartsGraph'=>'modules/graphs/PressureHighChartsGraph.inc',
 'PressureLineGraph'=>'modules/graphs/PressureLineGraph.inc',
 'ProjectGenerator'=>'external/phphtmllib/src/generator/ProjectGenerator.inc',

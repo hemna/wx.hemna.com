@@ -9,6 +9,12 @@ body {
     background-color: #FFFFFF;
 }
 
+canvas {
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+
 #phphtmllib {
     font-family: arial, helvetica;
     font-size: .6em;

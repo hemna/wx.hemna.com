@@ -4,7 +4,7 @@
  */
 
 class TempDewPointChartsJSGraph extends myChartsJSGraph {
-    
+
     protected $temp_data = array();
     protected $dewp_data = array();
 
@@ -16,8 +16,7 @@ class TempDewPointChartsJSGraph extends myChartsJSGraph {
             $collection = weatherDataObject::find_all(
                 "datetime like :date",
                 array(':date'=> $today.'%'),
-                'order by datetime asc',
-                'limit 0,10');
+                'order by datetime asc');
 
             foreach($collection as $wx) {
                 /**
@@ -32,7 +31,7 @@ class TempDewPointChartsJSGraph extends myChartsJSGraph {
                                                 "y"=>floatval($temp_value));
 
                 $dewp_value = $wx->get_dewpoint();
-                $this->dewp_data[] = "['".$date."',".$dewp_value."]";
+                $this->dewp_data[] = "{t: '".$date."', y: '".$dewp_value."'}";
                 $this->dewp_json_data[] = array($date, floatval($dewp_value));
             }
             $cache_data = array('temp_data' => $this->temp_data,
@@ -50,18 +49,37 @@ class TempDewPointChartsJSGraph extends myChartsJSGraph {
 
     public function render_graph() {
         $js = "
-var tempdewdata = [ ".join($this->temp_data, ', ')." ];
-tempdewcanvas = document.getElementById('idTempDewPoint');
-console.log(tempdewcanvas.width);
-console.log(tempdewcanvas.height);
+var tempdata = [ ".join($this->temp_data, ', ')." ];
+var dewpdata = [ ".join($this->dewp_data, ', ')." ];
+ctx = document.getElementById('idTempDewPoint').getContext('2d');
+ctx.canvas.width = 510;
+ctx.canvas.height = 200;
+
+var color = Chart.helpers.color;
 var tempdewpointoptions = {
     type: 'line',
     data: {
-        datasets: [{
-            data: tempdewdata,
-            fill: false,
-            drawTicks: true
-        }],
+         datasets: [
+             { label: 'Temperature °F',
+			   backgroundColor: color('#FF0000').alpha(0.5).rgbString(),
+               borderColor: '#FF0000',
+			   data: tempdata,
+			   type: 'line',
+			   pointRadius: 0,
+			   fill: false,
+			   lineTension: 0,
+               borderWidth: 2 },
+             { label: 'Dew Point °F',
+			   backgroundColor: color('#333399').alpha(0.5).rgbString(),
+			   borderColor: '#333399',
+			   data: dewpdata,
+			   type: 'line',
+			   pointRadius: 0,
+			   fill: false,
+			   lineTension: 0,
+			   borderWidth: 2 }
+        ]
+    },
     options: {
         scales: {
            xAxes: [{
@@ -69,27 +87,41 @@ var tempdewpointoptions = {
                distribution: 'linear',
                bounds: 'data',
                time: {
-                   unit: 'second',
-                   minUnit: 'second',
+                   unit: 'minute',
                },
-               scaleLabel: {
-                   display: true,
-                   labelString: 'Date',
+               ticks: {
+                   autoSkip: true,
+                   maxTicksLimit: 12,
+                   labelOffset: 10,
+                   lineHeight: 1.0
+               },
+               gridLines: {
+                   color: '#bbbbbb',
+                   drawBorder: true,
+                   tickMarkLength: 5
                }
-
            }],
            yAxes: [{
                scaleLabel: {
-                   display: true,
+                   display: false,
                    labelString: 'Temperature °F',
+               },
+               ticks: {
+                   min: -10,
+                   max: 110,
+                   autoSkip: true,
+                   maxTicksLimit: 12
+               },
+               gridLines: {
+                   color: '#bbbbbb',
+                   drawBorder: true
                }
            }],
         }
       }
-    }
 }
 
-var chart = new Chart(tempdewcanvas, tempdewpointoptions);
+var chart = new Chart(ctx, tempdewpointoptions);
 ";
 
         return "<script type=\"text/javascript\">".$js."</script>";
