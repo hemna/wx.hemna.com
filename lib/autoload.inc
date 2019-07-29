@@ -1,7 +1,7 @@
 <?php
 /**
  * This is an auto-generated file. Please do not modify!
- * Generated on 2019-07-29T18:21:40+00:00 by AutoloadGenerator
+ * Generated on 2019-07-29T18:43:54+00:00 by AutoloadGenerator
  *
  * @package open2300
  */
@@ -310,6 +310,7 @@ static $target = array(
 'html-tag-class'=>'HTMLTagClass',
 'html-w'=>'HTMLWidget',
 'info-table'=>'InfoTable',
+'inside-temp-charts-j-s-graph'=>'InsideTempChartsJSGraph',
 'inside-temp-high-charts-graph'=>'InsideTempHighChartsGraph',
 'inside-temp-line-graph'=>'InsideTempLineGraph',
 'menu-bar-w'=>'MenuBarWidget',
@@ -323,8 +324,10 @@ static $target = array(
 'metar'=>'MetarTextCurrentConditions',
 'nav-table'=>'NavTable',
 'open-2-3-0-0'=>'open2300Page',
+'pressure-charts-j-s-graph'=>'PressureChartsJSGraph',
 'pressure-high-charts-graph'=>'PressureHighChartsGraph',
 'pressure-line-graph'=>'PressureLineGraph',
+'rain-charts-j-s-graph'=>'RainChartsJSGraph',
 'rain-high-charts-graph'=>'RainHighChartsGraph',
 'rain-line-graph'=>'RainLineGraph',
 'red-theme'=>'RedTheme',
@@ -341,6 +344,7 @@ static $target = array(
 'tab-control-w'=>'TabControlWidget',
 'tab-list'=>'TabList',
 'tab-w'=>'TabWidget',
+'temp-dew-point-charts-j-s-graph'=>'TempDewPointChartsJSGraph',
 'temp-dew-point-high-charts-graph'=>'TempDewPointHighChartsGraph',
 'temp-dew-point-line-flash-graph'=>'TempDewPointLineFlashGraph',
 'temp-dew-point-line-graph'=>'TempDewPointLineGraph',
@@ -355,6 +359,7 @@ static $target = array(
 'web-cam'=>'WebCam',
 'wind-direction-high-charts-gauge'=>'WindDirectionHighChartsGauge',
 'wind-rose-high-charts-graph'=>'WindRoseHighChartsGraph',
+'wind-speed-charts-j-s-graph'=>'WindSpeedChartsJSGraph',
 'wind-speed-high-charts-gauge'=>'WindSpeedHighChartsGauge',
 'wind-speed-high-charts-graph'=>'WindSpeedHighChartsGraph',
 'wind-speed-line-graph'=>'WindSpeedLineGraph',
@@ -401,6 +406,7 @@ static $target_lookup = array(
 'HTMLTagClass'=>'html-tag-class',
 'HTMLWidget'=>'html-w',
 'InfoTable'=>'info-table',
+'InsideTempChartsJSGraph'=>'inside-temp-charts-j-s-graph',
 'InsideTempHighChartsGraph'=>'inside-temp-high-charts-graph',
 'InsideTempLineGraph'=>'inside-temp-line-graph',
 'MenuBarWidget'=>'menu-bar-w',
@@ -414,8 +420,10 @@ static $target_lookup = array(
 'MetarTextCurrentConditions'=>'metar',
 'NavTable'=>'nav-table',
 'open2300Page'=>'open-2-3-0-0',
+'PressureChartsJSGraph'=>'pressure-charts-j-s-graph',
 'PressureHighChartsGraph'=>'pressure-high-charts-graph',
 'PressureLineGraph'=>'pressure-line-graph',
+'RainChartsJSGraph'=>'rain-charts-j-s-graph',
 'RainHighChartsGraph'=>'rain-high-charts-graph',
 'RainLineGraph'=>'rain-line-graph',
 'RedTheme'=>'red-theme',
@@ -432,6 +440,7 @@ static $target_lookup = array(
 'TabControlWidget'=>'tab-control-w',
 'TabList'=>'tab-list',
 'TabWidget'=>'tab-w',
+'TempDewPointChartsJSGraph'=>'temp-dew-point-charts-j-s-graph',
 'TempDewPointHighChartsGraph'=>'temp-dew-point-high-charts-graph',
 'TempDewPointLineFlashGraph'=>'temp-dew-point-line-flash-graph',
 'TempDewPointLineGraph'=>'temp-dew-point-line-graph',
@@ -446,6 +455,7 @@ static $target_lookup = array(
 'WebCam'=>'web-cam',
 'WindDirectionHighChartsGauge'=>'wind-direction-high-charts-gauge',
 'WindRoseHighChartsGraph'=>'wind-rose-high-charts-graph',
+'WindSpeedChartsJSGraph'=>'wind-speed-charts-j-s-graph',
 'WindSpeedHighChartsGauge'=>'wind-speed-high-charts-gauge',
 'WindSpeedHighChartsGraph'=>'wind-speed-high-charts-graph',
 'WindSpeedLineGraph'=>'wind-speed-line-graph',

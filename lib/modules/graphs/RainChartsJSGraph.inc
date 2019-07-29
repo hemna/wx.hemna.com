@@ -22,7 +22,7 @@ class RainChartsJSGraph extends myChartsJSGraph {
 		$date = $wx->get_datetime();
                 $value = $wx->get_rain_total();
                 $this->rain_data[] =  "{t: '".$date."', y: '".$value."'}";
-                $this->rain_json_data[] = array($date, floatval($value));
+                $this->rain_json_data[] = array("t"=>$date, "y"=>floatval($value));
 
             }
             $cache_data = array('rain_data' => $this->rain_data,
@@ -39,7 +39,7 @@ class RainChartsJSGraph extends myChartsJSGraph {
 var raindata = [ ".join($this->rain_data, ', ')." ];
 rainctx = document.getElementById('idRainLineGraph').getContext('2d');
 rainctx.canvas.width = 510;
-rainctx.canvas.height = 200;
+rainctx.canvas.height = 215;
 
 var color = Chart.helpers.color;
 var rainoptions = {
@@ -56,6 +56,9 @@ var rainoptions = {
         ]
     },
     options: {
+	animation: {
+            duration: 5000
+        },
         scales: {
            xAxes: [{
                type: 'time',
@@ -103,8 +106,6 @@ var rainc = new Chart(rainctx, rainoptions);
 
     public function render_data() {
         $series = array("name" => "Rain (inches)",
-                        "color" => "#ff0000",
-                        "shadow" => "true",
                         "data" => $this->rain_json_data);
         return json_encode($series);
     }

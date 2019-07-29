@@ -23,7 +23,7 @@ $gen->add_form_content_parent('AjaxStandardFormContent');
 $gen->set_debug_mode(true);
 $gen->set_renderable_parents(array('Container','HTMLPage', 'HTMLWidget',
     'HTMLDataList','myGraph', 'myD3Graph',
-    'myFlashGraph', 'myHighChartsGraph', 'RemoteUpdate',
+    'myFlashGraph', 'myHighChartsGraph', 'RemoteUpdate', 'myChartsJSGraph',
     'JSONWidget'));
 $gen->add_exclude('jpgraph-2.2');
 $gen->add_exclude('jpgraph-3.5.0b1');

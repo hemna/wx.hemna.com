@@ -26,10 +26,10 @@ class PressureChartsJSGraph extends myChartsJSGraph {
                 $total = $total + $value;
                 $avg = ($total) / $cnt;
                 $this->graph_average[] = "{t: '".$date."',y: '".$avg."'}"; 
-                $this->average_json_data[] = array($date, floatval($avg));
+                $this->average_json_data[] = array("t"=>$date, "y"=>floatval($avg));
                 $cnt++;
                 $this->pressure_data[] =  "{t: '".$date."', y: '".$value."'}";
-                $this->pressure_json_data[] = array($date, floatval($value));
+                $this->pressure_json_data[] = array("x"=>$date, "y"=>floatval($value));
 
             }
             $cache_data = array('pressure_data' => $this->pressure_data,
@@ -52,7 +52,7 @@ var presdata = [ ".join($this->pressure_data, ', ')." ];
 var presavgdata = [ ".join($this->graph_average, ', ')." ];
 prctx = document.getElementById('idPressure').getContext('2d');
 prctx.canvas.width = 510;
-prctx.canvas.height = 200;
+prctx.canvas.height = 215;
 
 var color = Chart.helpers.color;
 var presoptions = {
@@ -80,6 +80,10 @@ var presoptions = {
         ]
     },
     options: {
+	animation: {
+	    duration: 5000,
+            easing: 'linear'
+        },
         scales: {
            xAxes: [{
                type: 'time',
@@ -118,7 +122,7 @@ var presoptions = {
       }
 }
 
-var chart = new Chart(prctx, presoptions);
+var pressurechart = new Chart(prctx, presoptions);
 ";
 
         return "<script type=\"text/javascript\">".$js."</script>";
@@ -127,12 +131,8 @@ var chart = new Chart(prctx, presoptions);
 
     public function render_data() {
         $pressure_series = array( "name" => "Pressure",
-                                  "color" => "#0000ff",
-                                  "shadow" => "true",
                                   "data" => $this->pressure_json_data);
         $average_series = array( "name" => "Average",
-                                  "color" => "#ff0000",
-                                  "shadow" => "true",
                                   "data" => $this->average_json_data);
         $series = array($pressure_series, $average_series);
         return json_encode($series);

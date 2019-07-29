@@ -22,8 +22,6 @@ class TempDewPointChartsJSGraph extends myChartsJSGraph {
                 /**
                  * @param $wx weatherDataObject
                  */
-                $datetime = strtotime($wx->get_datetime()) * 1000;
-                //$date = date("m-d-Y H:i:s", $wx->get_datetime());
                 $date = $wx->get_datetime();
                 $temp_value = $wx->get_temp_out();
                 $this->temp_data[] =  "{t: '".$date."', y: '".$temp_value."'}";
@@ -32,7 +30,8 @@ class TempDewPointChartsJSGraph extends myChartsJSGraph {
 
                 $dewp_value = $wx->get_dewpoint();
                 $this->dewp_data[] = "{t: '".$date."', y: '".$dewp_value."'}";
-                $this->dewp_json_data[] = array($date, floatval($dewp_value));
+		$this->dewp_json_data[] = array("t" => $date,
+		                                "y" => floatval($dewp_value));
             }
             $cache_data = array('temp_data' => $this->temp_data,
                                 'temp_json_data' => $this->temp_json_data,
@@ -53,7 +52,7 @@ var tempdata = [ ".join($this->temp_data, ', ')." ];
 var dewpdata = [ ".join($this->dewp_data, ', ')." ];
 ctx = document.getElementById('idTempDewPoint').getContext('2d');
 ctx.canvas.width = 510;
-ctx.canvas.height = 200;
+ctx.canvas.height = 215;
 
 var color = Chart.helpers.color;
 var tempdewpointoptions = {
@@ -61,13 +60,13 @@ var tempdewpointoptions = {
     data: {
          datasets: [
              { label: 'Temperature °F',
-	       backgroundColor: color('#FF0000').alpha(0.5).rgbString(),
+	           backgroundColor: color('#FF0000').alpha(0.5).rgbString(),
                borderColor: '#FF0000',
-	       data: tempdata,
-	       type: 'line',
-	       pointRadius: 0,
-	       fill: false,
-	       lineTension: 0,
+	           data: tempdata,
+	           type: 'line',
+	           pointRadius: 0,
+	           fill: false,
+	           lineTension: 0,
                borderWidth: 1 },
              { label: 'Dew Point °F',
 		   backgroundColor: color('#333399').alpha(0.5).rgbString(),
@@ -81,6 +80,10 @@ var tempdewpointoptions = {
         ]
     },
     options: {
+        animation: {
+            duration: 5000,
+            easing: 'easeInBounce'
+        },
         scales: {
            xAxes: [{
                type: 'time',
@@ -121,24 +124,19 @@ var tempdewpointoptions = {
       }
 }
 
-var chart = new Chart(ctx, tempdewpointoptions);
+var tempdewchart = new Chart(ctx, tempdewpointoptions);
 ";
 
         return "<script type=\"text/javascript\">".$js."</script>";
     }
 
     public function render_data() {
-        $temp_series = array( "name" => "Temperature F",
-                              "color" => "#ff0000",
-                              "shadow" => "true",
+        $temp_series = array( "name" => "temp",
                               "data" => $this->temp_json_data);
-        $dewp_series = array( "name" => "Dewpoint F",
-                              "color" => "#006600",
-                              "shadow" => "true",
+        $dewp_series = array( "name" => "dewpoint",
                               "data" => $this->dewp_json_data);
         $series = array($temp_series, $dewp_series);
-        //return json_encode($series);
-        return json_encode($temp_series);
+        return json_encode($series);
     }
 }
 ?>

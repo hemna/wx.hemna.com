@@ -26,10 +26,10 @@ class WindSpeedChartsJSGraph extends myChartsJSGraph {
                 $total = $total + $value;
                 $avg = ($total) / $cnt;
                 $this->graph_average[] = "{t: '".$date."', y: '".$avg."'}"; 
-                $this->avg_json_data[] = array($date, floatval($avg));
+                $this->avg_json_data[] = array("t"=>$date, "y"=>floatval($avg));
                 $cnt++;
                 $this->wind_data[] =  "{t: '".$date."', y: '".$value."'}";
-                $this->wind_json_data[] = array($date, floatval($value));
+                $this->wind_json_data[] = array("t"=>$date, "y"=>floatval($value));
 
             }
             $cache_data = array('wind_data' => $this->wind_data,
@@ -51,7 +51,7 @@ var windspeeddata = [ ".join($this->wind_data, ', ')." ];
 var windspeedavgdata = [ ".join($this->graph_average, ', ')." ];
 windctx = document.getElementById('idWindSpeed').getContext('2d');
 windctx.canvas.width = 510;
-windctx.canvas.height = 200;
+windctx.canvas.height = 215;
 
 var color = Chart.helpers.color;
 var windoptions = {
@@ -74,6 +74,10 @@ var windoptions = {
         ]
     },
     options: {
+	animation: {
+            duration: 5000,
+            easing: 'easeInBack'
+        },
         scales: {
            xAxes: [{
                type: 'time',
@@ -121,15 +125,8 @@ var windc = new Chart(windctx, windoptions);
 
     public function render_data() {
         $wind_series = array("name" => "Wind Speed (mph)",
-                             "type" => "scatter",
-                             "color" => "#0000ff",
-                             "marker" => array("radius" => 2 ),
-                             "shadow" => "true",
                              "data" => $this->wind_json_data);
         $avg_series = array("name" => "Average",
-                             "type" => "line",
-                             "color" => "#ff0000",
-                             "shadow" => "true",
                              "data" => $this->avg_json_data);
         $series = array($wind_series, $avg_series);
         return json_encode($series);

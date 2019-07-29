@@ -22,7 +22,7 @@ class InsideTempChartsJSGraph extends myChartsJSGraph {
                 $date = $wx->get_datetime();
                 $value = $wx->get_temp_in();
                 $this->temp_data[] =  "{t: '".$date."', y:'".$value."'}";
-                $this->json_data[] = array($date, floatval($value));
+                $this->json_data[] = array("t" => $date, "y" => floatval($value));
             }
             $cache_data = array('temp_data' => $this->temp_data,
                                 'json_data' => $this->json_data);
@@ -39,7 +39,7 @@ class InsideTempChartsJSGraph extends myChartsJSGraph {
 var intempdata = [ ".join($this->temp_data, ', ')." ];
 inctx = document.getElementById('idInsideTemp').getContext('2d');
 inctx.canvas.width = 510;
-inctx.canvas.height = 200;
+inctx.canvas.height = 215;
 
 var color = Chart.helpers.color;
 var intempoptions = {
@@ -58,6 +58,9 @@ var intempoptions = {
         ]
     },
     options: {
+	animation: {
+            duration: 3000,
+        },
         scales: {
            xAxes: [{
                type: 'time',
@@ -96,16 +99,14 @@ var intempoptions = {
       }
 }
 
-var chart = new Chart(inctx, intempoptions);
+var insidechart = new Chart(inctx, intempoptions);
 ";
 
         return "<script type=\"text/javascript\">".$js."</script>";
     }
 
     public function render_data() {
-        $series = array( "name" => "Temperature °F",
-                         "color" => "#ff0000",
-                         "shadow" => "true",
+        $series = array( "name" => "Inside",
                          "data" => $this->json_data);
         return json_encode($series);
     }

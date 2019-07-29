@@ -18,7 +18,7 @@ abstract class myChartsJSGraph {
      * Class Constructor
      *
      */
-    public function __construct($date=null) {
+    public function __construct($date=null, $load=True) {
         $this->cache = $this->get_cache_object();
 
         if (!is_null($date)) {
@@ -31,7 +31,9 @@ abstract class myChartsJSGraph {
         }
         $this->build_sunrise_sunset();
 
-        $this->load_data();
+	if ($load) {
+	    $this->load_data();
+	}
     }
 
     public function render() {

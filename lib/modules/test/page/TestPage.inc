@@ -32,15 +32,16 @@ class TestPage extends open2300Page {
         $this->add_css_link("/css/fonts.css");
         //$this->add_css_link("/css/daily-weather-graph.css");
 
-        //$this->add_css_link("https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.css");
+        $this->add_css_link("https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.css");
 
-        //$this->add_js_link("http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js");
+        $this->add_js_link("http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js");
         //$this->add_js_link("https://cdn.jsdelivr.net/gh/jquery/jquery@3/dist/jquery.min.js");
-        //$this->add_js_link("https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js");
+        $this->add_js_link("https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js");
         //$this->add_js_link("https://www.chartjs.org/samples/latest/utils.js");
-        $this->add_js_link("https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js");
-        $this->add_js_link("https://www.chartjs.org/dist/2.8.0/Chart.min.js");
-        //$this->add_js_link("/js/main.js");
+        //$this->add_js_link("https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js");
+        //$this->add_js_link("https://www.chartjs.org/dist/2.8.0/Chart.min.js");
+        $this->add_js_link("/js/main.js");
+        $this->add_js_link("/js/chartsjs-update.js");
         //$this->add_js_link("/js/ticker.js");
         //$this->add_js_link("/js/banner.js");
         //$this->add_js_link( 'http://d3js.org/d3.v5.min.js' );
@@ -53,9 +54,9 @@ class TestPage extends open2300Page {
 	function left_block() {
 
 		$container = Container::factory();
-        //$this->add_head_js("$(window).load( start_hc );");
-        //$this->add_head_js("$(window).load( main_init );");
-        //$this->add_head_js("$(window).load( start_updates );");
+        $this->add_head_js("$(window).load( start_chartsjs );");
+        $this->add_head_js("$(window).load( main_init );");
+        $this->add_head_js("$(window).load( start_updates );");
         //$this->add_head_js("$(window).load( start_ticker );");
         //$this->add_head_js("$(window).load( start_banner );");
 
@@ -95,7 +96,7 @@ class TestPage extends open2300Page {
                 )
             ));
 
-        $right_div->add(new TempDewPointChartsJSGraph());
+        $right_div->add(new TempDewPointChartsJSGraph(null, False));
 
         $right_div->add(
             new DIVtag(
@@ -105,7 +106,7 @@ class TestPage extends open2300Page {
                     array('id' => 'idInsideTemp', 'width' => '510', 'height' => '200')
                 )
             ));
-        $right_div->add(new InsideTempChartsJSGraph());
+        $right_div->add(new InsideTempChartsJSGraph(null, False));
 
         $right_div->add(
             new DIVtag(
@@ -115,7 +116,7 @@ class TestPage extends open2300Page {
                     array('id' => 'idPressure', 'width' => '510', 'height' => '200')
                 )
             ));
-	$right_div->add(new PressureChartsJSGraph());
+	$right_div->add(new PressureChartsJSGraph(null, False));
 
         $right_div->add(
             new DIVtag(
@@ -125,7 +126,7 @@ class TestPage extends open2300Page {
                     array('id' => 'idWindSpeed', 'width' => '510', 'height' => '200')
                 )
             ));
-        $right_div->add(new WindSpeedChartsJSGraph());
+        $right_div->add(new WindSpeedChartsJSGraph(null, False));
 
         $right_div->add(
             new DIVtag(
@@ -135,7 +136,7 @@ class TestPage extends open2300Page {
                     array('id' => 'idRainLineGraph', 'width' => '510', 'height' => '200')
                 )
             ));
-        $right_div->add(new RainChartsJSGraph());
+        $right_div->add(new RainChartsJSGraph(null, False));
 
         $table = TABLEtag::factory("100%",0,0,0);
         $table->add_row(new TDtag(array('style' => 'vertical-align:top;width:510px;'),$right_div),
