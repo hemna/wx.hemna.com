@@ -46,7 +46,12 @@ abstract class myChartsJSGraph {
     }
 
     protected function get_cache_object() {
-        return FileCache::singleton();
+        $cache_enabled = Config::singleton()->get('cache_enabled');
+        if (!$cache_enabled) {
+            return NoCache::singleton();
+        } else {
+	    return FileCache::singleton();
+	}
     }
 
     abstract protected function render_data();

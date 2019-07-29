@@ -6,8 +6,7 @@ function start_chartsjs() {
             type: 'post',
             dataType: 'json',
             success: function(data) {
-		        //tempdewchart.data.datasets[0].data = data[0]['data'];
-		        tempdewchart.data.datasets[0].data = null;
+		        tempdewchart.data.datasets[0].data = data[0]['data'];
 		        tempdewchart.data.datasets[1].data = data[1]['data'];
 		        tempdewchart.update();
             },
@@ -37,7 +36,6 @@ function start_chartsjs() {
             url: "/?target=pressure-charts-j-s-graph&dataOnly=1",
             dataType: 'json',
             success: function(data) {
-                console.log(data);
                 pressurechart.data.datasets[0].data = data[0]['data'];
                 pressurechart.data.datasets[1].data = data[1]['data'];
                 pressurechart.update();
