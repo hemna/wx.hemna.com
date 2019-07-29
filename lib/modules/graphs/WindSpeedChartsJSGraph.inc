@@ -75,8 +75,8 @@ var windoptions = {
     },
     options: {
 	animation: {
-            duration: 5000,
-            easing: 'easeInBack'
+            duration: 2000,
+            easing: 'easeInExpo'
         },
         scales: {
            xAxes: [{

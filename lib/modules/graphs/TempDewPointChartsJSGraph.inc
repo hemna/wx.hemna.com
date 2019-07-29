@@ -81,8 +81,8 @@ var tempdewpointoptions = {
     },
     options: {
         animation: {
-            duration: 5000,
-            easing: 'easeInBounce'
+	    duration: 1500,
+            easing: 'easeInExpo'
         },
         scales: {
            xAxes: [{

@@ -81,8 +81,8 @@ var presoptions = {
     },
     options: {
 	animation: {
-	    duration: 5000,
-            easing: 'linear'
+	    duration: 2500,
+            easing: 'easeInExpo'
         },
         scales: {
            xAxes: [{

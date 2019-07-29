@@ -59,7 +59,8 @@ var intempoptions = {
     },
     options: {
 	animation: {
-            duration: 3000,
+	    duration: 2000,
+            easing: 'easeInExpo'
         },
         scales: {
            xAxes: [{

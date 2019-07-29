@@ -28,8 +28,10 @@ class WxDate extends open2300Page {
         $this->add_css_link("/css/main.css");
         $this->add_css_link("/css/menu.css");
         $this->add_css_link("/css/fonts.css");
+        $this->add_css_link("https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.css");
 
         $this->add_js_link("http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js");
+        $this->add_js_link("https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js");
         $this->add_js_link("/js/highcharts/js/highcharts.js");
         $this->add_js_link("/js/hc.js");
         $this->add_js_link("/js/main.js");
@@ -59,34 +61,57 @@ class WxDate extends open2300Page {
     function content_block() {        
         //add some graphs
         $right_div = new DIVtag(array('id' => ''));
-        $right_div->add(new DIVtag(
-            array('id' => 'idTempDewPointLineGraphdiv',
-            'style'=> 'padding-top:0px;padding-bottom:5px;height:200px;width:800px;')
-        ));
-        $right_div->add(new TempDewPointHighChartsGraph($this->wxdate));
-        $right_div->add(new DIVtag(
-            array('id' => 'idInsideTempLineGraphdiv',
-            'style'=> 'padding-top:0px;padding-bottom:5px;height:200px;width:800px;')
-        ));
-        $right_div->add(new InsideTempHighChartsGraph($this->wxdate));
 
-        $right_div->add(new DIVtag(
-            array('id' => 'idPressureLineGraphdiv',
-            'style'=> 'padding-top:0px;padding-bottom:5px;height:200px;width:800px;')
-        ));
-        $right_div->add(new PressureHighChartsGraph($this->wxdate));
+        $right_div->add(
+            new DIVtag(
+                array('style'=> 'padding-top:0px;padding-bottom:0px;margin-bottom:5px;'.
+                                'height:200px;width:510px;border: 1px solid black; background-color: #eeeeee;'),
+                new CANVAStag(
+                    array('id' => 'idTempDewPoint', 'width' => '510', 'height' => '200')
+                )
+            ));
 
-        $right_div->add(new DIVtag(
-            array('id' => 'idWindLineGraphdiv',
-            'style'=> 'padding-top:0px;padding-bottom:5px;height:200px;width:800px;')
-        ));
-        $right_div->add(new WindSpeedHighChartsGraph($this->wxdate));
+        $right_div->add(new TempDewPointChartsJSGraph($this->wxdate));
 
-        $right_div->add(new DIVtag(
-            array('id' => 'idRainLineGraphdiv',
-            'style'=> 'padding-top:0px;padding-bottom:5px;height:200px;width:800px;')
-        ));
-        $right_div->add(new RainHighChartsGraph($this->wxdate));
+        $right_div->add(
+            new DIVtag(
+                array('style'=> 'padding-top:0px;padding-bottom:0px;margin-bottom:5px;'.
+                                'height:200px;width:510px;border:1px solid black; background-color: #eeeeee;'),
+                new CANVAStag(
+                    array('id' => 'idInsideTemp', 'width' => '510', 'height' => '200')
+                )
+            ));
+        $right_div->add(new InsideTempChartsJSGraph($this->wxdate));
+
+        $right_div->add(
+            new DIVtag(
+                array('style'=> 'padding-top:0px;padding-bottom:0px;margin-bottom:5px;'.
+                                'height:200px;width:510px;border:1px solid black; background-color: #eeeeee;'),
+                new CANVAStag(
+                    array('id' => 'idPressure', 'width' => '510', 'height' => '200')
+                )
+            ));
+	$right_div->add(new PressureChartsJSGraph($this->wxdate));
+
+        $right_div->add(
+            new DIVtag(
+                array('style'=> 'padding-top:0px;padding-bottom:0px;margin-bottom:5px;'.
+                                'height:200px;width:510px;border:1px solid black; background-color: #eeeeee;'),
+                new CANVAStag(
+                    array('id' => 'idWindSpeed', 'width' => '510', 'height' => '200')
+                )
+            ));
+        $right_div->add(new WindSpeedChartsJSGraph($this->wxdate));
+
+        $right_div->add(
+            new DIVtag(
+                array('style'=> 'padding-top:0px;padding-bottom:0px;margin-bottom:5px;'.
+                                'height:200px;width:510px;border:1px solid black; background-color: #eeeeee;'),
+                new CANVAStag(
+                    array('id' => 'idRainLineGraph', 'width' => '510', 'height' => '200')
+                )
+            ));
+        $right_div->add(new RainChartsJSGraph($this->wxdate));
         
         $this->add_js_link('/js/lightview/lightview.js');
 		$this->add_css_link('/css/lightview/lightview.css');
