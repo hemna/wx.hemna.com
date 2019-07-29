@@ -115,7 +115,17 @@ class TestPage extends open2300Page {
                     array('id' => 'idPressure', 'width' => '510', 'height' => '200')
                 )
             ));
-        $right_div->add(new PressureChartsJSGraph());
+	$right_div->add(new PressureChartsJSGraph());
+	
+        $right_div->add(
+            new DIVtag(
+                array('style'=> 'padding-top:0px;padding-bottom:0px;margin-bottom:5px;'.
+                                'height:200px;width:510px;border:1px solid black; background-color: #eeeeee;'),
+                new CANVAStag(
+                    array('id' => 'idWindSpeed', 'width' => '510', 'height' => '200')
+                )
+            ));
+        $right_div->add(new WindSpeedChartsJSGraph());
 
         $table = TABLEtag::factory("100%",0,0,0);
         $table->add_row(new TDtag(array('style' => 'vertical-align:top;width:510px;'),$right_div),

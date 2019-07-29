@@ -21,14 +21,15 @@ class WindSpeedChartsJSGraph extends myChartsJSGraph {
                 /**
                  * @param $wx weatherDataObject
                  */
-                $datetime = strtotime($wx->get_datetime()) * 1000;
+		$datetime = strtotime($wx->get_datetime()) * 1000;
+		$date = $wx->get_datetime();
                 $value = $wx->get_wind_speed();
                 $total = $total + $value;
                 $avg = ($total) / $cnt;
-                $this->graph_average[] = '['.$datetime.','.$avg.']'; 
+                $this->graph_average[] = "{t: '".$date."', y: '".$avg."'}"; 
                 $this->avg_json_data[] = array($datetime, floatval($avg));
                 $cnt++;
-                $this->wind_data[] =  "[".$datetime.",".$value."]";
+                $this->wind_data[] =  "{t: '".$date."', y: '".$value."'}";
                 $this->wind_json_data[] = array($datetime, floatval($value));
 
             }
@@ -56,25 +57,30 @@ var windlineoptions = {
 ";
 
         $js = "
-var windspeeddata = [ ".join($this->pressure_data, ', ')." ];
+var windspeeddata = [ ".join($this->wind_data, ', ')." ];
+var windspeedavgdata = [ ".join($this->graph_average, ', ')." ];
 windctx = document.getElementById('idWindSpeed').getContext('2d');
 windctx.canvas.width = 510;
 windctx.canvas.height = 200;
 
 var color = Chart.helpers.color;
-var presoptions = {
+var windoptions = {
     type: 'line',
     data: {
          datasets: [
-             { label: 'Wind Speed mph',
-			   backgroundColor: color('#333399').alpha(0.5).rgbString(),
-			   borderColor: '#333399',
-			   data: presdata,
-			   type: 'line',
-			   pointRadius: 0,
-			   fill: false,
-			   lineTension: 0,
-               borderWidth: 2 },
+	     { label: 'Wind Speed mph',
+               backgroundColor: color('#333399').alpha(0.5).rgbString(),
+	       borderColor: '#333399',
+               data: windspeeddata,
+	       showLine: false,
+               pointRadius: .5,
+               borderWidth: 1 },
+	     { label: 'Average mph',
+               backgroundColor: color('#FF0000').alpha(0.5).rgbString(),
+	       borderColor: '#FF0000',
+               data: windspeedavgdata,
+	       pointRadius: .5,
+               borderWidth: 1 },
         ]
     },
     options: {
@@ -101,7 +107,7 @@ var presoptions = {
            yAxes: [{
                scaleLabel: {
                    display: false,
-                   labelString: 'Temperature °F',
+                   labelString: 'Wind Speed mph',
                },
                ticks: {
                    autoSkip: true,

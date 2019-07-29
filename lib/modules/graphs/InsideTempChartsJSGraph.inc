@@ -85,8 +85,6 @@ var intempoptions = {
                    labelString: 'Temperature °F',
                },
                ticks: {
-                   min: 60,
-                   max: 100,
                    autoSkip: true,
                    maxTicksLimit: 12
                },
