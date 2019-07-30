@@ -32,7 +32,8 @@ class WxDate extends open2300Page {
 
         $this->add_js_link("http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js");
         $this->add_js_link("https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js");
-        $this->add_js_link("/js/highcharts/js/highcharts.js");
+	$this->add_js_link("https://cdnjs.cloudflare.com/ajax/libs/highcharts/4.0.1/highcharts.js");
+	$this->add_js_link("https://cdnjs.cloudflare.com/ajax/libs/highcharts/4.0.1/highcharts-more.js");
         $this->add_js_link("/js/hc.js");
         $this->add_js_link("/js/main.js");
         $this->add_js_link("/js/ticker.js");
