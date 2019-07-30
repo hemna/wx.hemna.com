@@ -53,6 +53,14 @@ var rainoptions = {
 	       showLine: false,
                pointRadius: .5,
                borderWidth: 1 },
+	     { label: 'Rain',
+               backgroundColor: color('#333399').alpha(0.5).rgbString(),
+	       borderColor: '#333399',
+               type: 'bar',
+               data: raindata,
+	       showLine: false,
+               pointRadius: .5,
+               borderWidth: 1 },
         ]
     },
     options: {
