@@ -137,7 +137,17 @@ class HomePage extends open2300Page {
                     array('id' => 'idPressure', 'width' => '510', 'height' => '200')
                 )
             ));
-	$right_div->add(new PressureChartsJSGraph(null, False));
+        $right_div->add(new PressureChartsJSGraph(null, False));
+
+        $right_div->add(
+            new DIVtag(
+                array('style'=> 'padding-top:0px;padding-bottom:0px;margin-bottom:5px;'.
+                                'height:200px;width:510px;border:1px solid black; background-color: #eeeeee;'),
+                new CANVAStag(
+                    array('id' => 'idHumidityGraph', 'width' => '510', 'height' => '200')
+                )
+            ));
+        $right_div->add(new HumidityChartsJSGraph(null, True));
 
         $right_div->add(
             new DIVtag(
@@ -158,6 +168,7 @@ class HomePage extends open2300Page {
                 )
             ));
         $right_div->add(new RainChartsJSGraph(null, False));
+
 
         //$this->add_js_link('/js/lightview/lightview.js');
 		//$this->add_css_link('/css/lightview/lightview.css');

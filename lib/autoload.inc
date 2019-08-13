@@ -1,7 +1,7 @@
 <?php
 /**
  * This is an auto-generated file. Please do not modify!
- * Generated on 2019-07-29T22:13:52+00:00 by AutoloadGenerator
+ * Generated on 2019-08-13T01:56:50+00:00 by AutoloadGenerator
  *
  * @package open2300
  */
@@ -154,6 +154,7 @@ static $class = array(
 'HTMLTagClass'=>'external/phphtmllib/src/core/HTMLTagClass.inc',
 'HTMLWidget'=>'external/phphtmllib/src/widgets/HTMLWidget.inc',
 'HTMLWidgetInterface'=>'external/phphtmllib/src/widgets/HTMLWidgetInterface.inc',
+'HumidityChartsJSGraph'=>'modules/graphs/HumidityChartsJSGraph.inc',
 'ImageThumbnailWidgetCSS'=>'external/phphtmllib/src/widgets/css/ImageThumbnailWidgetCSS.inc',
 'InfoTable'=>'external/phphtmllib/src/widgets/InfoTable.inc',
 'InfoTableCSS'=>'external/phphtmllib/src/widgets/css/InfoTableCSS.inc',
@@ -304,6 +305,7 @@ static $target = array(
 'html-dl-simple-search-fc'=>'HTMLDataListSimpleSearchFormContent',
 'html-tag-class'=>'HTMLTagClass',
 'html-w'=>'HTMLWidget',
+'humidity-charts-j-s-graph'=>'HumidityChartsJSGraph',
 'info-table'=>'InfoTable',
 'inside-temp-charts-j-s-graph'=>'InsideTempChartsJSGraph',
 'inside-temp-line-graph'=>'InsideTempLineGraph',
@@ -395,6 +397,7 @@ static $target_lookup = array(
 'HTMLDataListSimpleSearchFormContent'=>'html-dl-simple-search-fc',
 'HTMLTagClass'=>'html-tag-class',
 'HTMLWidget'=>'html-w',
+'HumidityChartsJSGraph'=>'humidity-charts-j-s-graph',
 'InfoTable'=>'info-table',
 'InsideTempChartsJSGraph'=>'inside-temp-charts-j-s-graph',
 'InsideTempLineGraph'=>'inside-temp-line-graph',

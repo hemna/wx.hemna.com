@@ -75,4 +75,18 @@ function start_chartsjs() {
         });
     })();
 
+    (function humidworker() {
+        $.ajax({
+            url: "/?target=humidity-charts-j-s-graph&dataOnly=1",
+            dataType: 'json',
+            success: function(data) {
+                rainc.data.datasets[0].data = data['data'];
+                rainc.update();
+            },
+            complete: function() {
+                setTimeout(humidworker, 60000);
+            }
+        });
+    })();
+
 }
