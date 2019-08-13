@@ -80,8 +80,8 @@ function start_chartsjs() {
             url: "/?target=humidity-charts-j-s-graph&dataOnly=1",
             dataType: 'json',
             success: function(data) {
-                rainc.data.datasets[0].data = data['data'];
-                rainc.update();
+                humidchart.data.datasets[0].data = data['data'];
+                humidchart.update();
             },
             complete: function() {
                 setTimeout(humidworker, 60000);
