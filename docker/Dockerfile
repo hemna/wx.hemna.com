@@ -57,7 +57,7 @@ RUN useradd -M -u 1000 -g 1000 -G waboring,root waboring
 RUN usermod -a -G root,waboring www-data
 
 # Setup the root shell
-RUN cd /root && wget -qO - https://raw.githubusercontent.com/hemna/.dotfiles/master/bootstrap.sh | bash
+#RUN cd /root && wget -qO - https://raw.githubusercontent.com/hemna/.dotfiles/master/bootstrap.sh | bash
 
 # Now get the app
 # RUN ls -al

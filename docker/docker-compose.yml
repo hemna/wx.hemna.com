@@ -1,0 +1,9 @@
+version: '3.3'
+
+services:
+    wx.hemna.com:
+        image: hemna/wx.hemna.com:latest
+        container_name: wx.hemna.com
+        volumes:
+            - /opt/docker/wx.hemna.com/wxcam:/wxcam
+
